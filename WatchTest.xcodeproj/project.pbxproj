@@ -22,6 +22,8 @@
 		447C27CF2EA0ACF20035595A /* WatchTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27CA2EA0ACF20035595A /* WatchTestApp.swift */; };
 		447C27D12EA0AD180035595A /* StepCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D02EA0AD180035595A /* StepCounter.swift */; };
 		447C27D32EA0BEA60035595A /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D22EA0BEA60035595A /* CurrencyManager.swift */; };
+		447C27D62EA0C3F30035595A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D52EA0C3F30035595A /* MainView.swift */; };
+		447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D72EA0C4000035595A /* ExchangeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		447C27CA2EA0ACF20035595A /* WatchTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTestApp.swift; sourceTree = "<group>"; };
 		447C27D02EA0AD180035595A /* StepCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCounter.swift; sourceTree = "<group>"; };
 		447C27D22EA0BEA60035595A /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
+		447C27D52EA0C3F30035595A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		447C27D72EA0C4000035595A /* ExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +190,7 @@
 		447C27B22EA0ACF10035595A /* WatchTest Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				447C27D42EA0C3E70035595A /* Views */,
 				447C27AD2EA0ACF10035595A /* Models */,
 				447C27AE2EA0ACF10035595A /* Assets.xcassets */,
 				447C27AF2EA0ACF10035595A /* ContentView.swift */,
@@ -239,6 +244,15 @@
 				447C27CA2EA0ACF20035595A /* WatchTestApp.swift */,
 			);
 			path = WatchTest;
+			sourceTree = "<group>";
+		};
+		447C27D42EA0C3E70035595A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				447C27D52EA0C3F30035595A /* MainView.swift */,
+				447C27D72EA0C4000035595A /* ExchangeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -501,8 +515,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				447C27B42EA0ACF10035595A /* ContentView.swift in Sources */,
+				447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */,
 				447C27B52EA0ACF10035595A /* WatchTestApp.swift in Sources */,
 				447C27D32EA0BEA60035595A /* CurrencyManager.swift in Sources */,
+				447C27D62EA0C3F30035595A /* MainView.swift in Sources */,
 				447C27D12EA0AD180035595A /* StepCounter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

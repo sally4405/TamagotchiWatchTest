@@ -67,4 +67,11 @@ class StepCounter: ObservableObject {
         
         healthStore.execute(query)
     }
+    
+    // MARK: - Testing Only (Remove in Production)
+    #if DEBUG
+    func addTestSteps(_ amount: Int) {
+        todaySteps += amount
+    }
+    #endif
 }

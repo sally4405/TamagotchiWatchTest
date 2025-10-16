@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct WatchTest_Watch_AppApp: App {
+    @StateObject private var stepCounter = StepCounter()
+    @StateObject private var currencyManager = CurrencyManager()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(stepCounter)
+                .environmentObject(currencyManager)
         }
     }
 }

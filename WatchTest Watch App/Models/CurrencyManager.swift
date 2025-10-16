@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class CurrencyManager: ObservableObject {
-    private let defaults = UserDefaults(suiteName: "group.com.sello.watchtest")!
+    private let defaults: UserDefaults
     
     @Published var currentCoins: Int = 0
     @Published var lastProcessedSteps: Int = 0
@@ -24,6 +24,7 @@ class CurrencyManager: ObservableObject {
     }
     
     init() {
+        self.defaults = UserDefaults(suiteName: "group.com.sello.watchtest") ?? .standard
         loadData()
     }
     
@@ -53,9 +54,10 @@ class CurrencyManager: ObservableObject {
         }
         
         let earnedCoins = newSteps / stepsPerCoin
+        let processedSteps = earnedCoins * stepsPerCoin
         
         currentCoins += earnedCoins
-        lastProcessedSteps = currentSteps
+        lastProcessedSteps += processedSteps
         lastProcessedDate = Date()
         saveData()
     }
