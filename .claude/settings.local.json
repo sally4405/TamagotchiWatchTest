@@ -3,7 +3,8 @@
     "allow": [
       "Bash(xcodebuild:*)",
       "Bash(git rm:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

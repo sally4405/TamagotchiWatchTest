@@ -8,11 +8,13 @@
 import Foundation
 import HealthKit
 
+@MainActor
 class StepCounter: ObservableObject {
     private let healthStore = HKHealthStore()
     
     @Published var isAuthorized: Bool = false
     @Published var authorizationError: String?
+    @Published var todaySteps: Int = 0
         
     func requestAuthorization() async {
         guard let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
@@ -35,5 +37,34 @@ class StepCounter: ObservableObject {
                 self.authorizationError = error.localizedDescription
             }
         }
+    }
+    
+    func fetchTodaySteps() async {
+        guard isAuthorized, let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
+            return
+        }
+        
+        let calendar = Calendar.current
+        let now = Date()
+        let startDate = calendar.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now)
+        
+        let query = HKStatisticsQuery(
+            quantityType: stepType,
+            quantitySamplePredicate: predicate,
+            options: .cumulativeSum
+        ) { _, result, error in
+            guard let result = result, let sum = result.sumQuantity() else {
+                return
+            }
+            
+            let steps = Int(sum.doubleValue(for: HKUnit.count()))
+            
+            Task { @MainActor in
+                self.todaySteps = steps
+            }
+        }
+        
+        healthStore.execute(query)
     }
 }
