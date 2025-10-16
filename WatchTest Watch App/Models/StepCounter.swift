@@ -13,11 +13,7 @@ class StepCounter: ObservableObject {
     
     @Published var isAuthorized: Bool = false
     @Published var authorizationError: String?
-    
-    func isHealthDataAvailable() -> Bool {
-        // TODO: HKHealthStore.isHealthDataAvailable() 반환
-    }
-    
+        
     func requestAuthorization() async {
         guard let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
             authorizationError = "Step Type not available."
