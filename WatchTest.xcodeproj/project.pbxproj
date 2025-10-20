@@ -24,6 +24,7 @@
 		447C27D32EA0BEA60035595A /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D22EA0BEA60035595A /* CurrencyManager.swift */; };
 		447C27D62EA0C3F30035595A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D52EA0C3F30035595A /* MainView.swift */; };
 		447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D72EA0C4000035595A /* ExchangeView.swift */; };
+		447C308F2EA5C73E0035595A /* TamagotchiScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C308E2EA5C73E0035595A /* TamagotchiScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,8 @@
 		447C27D22EA0BEA60035595A /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 		447C27D52EA0C3F30035595A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		447C27D72EA0C4000035595A /* ExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeView.swift; sourceTree = "<group>"; };
+		447C308E2EA5C73E0035595A /* TamagotchiScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamagotchiScene.swift; sourceTree = "<group>"; };
+		447C30912EA5CA350035595A /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.5.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,7 @@
 				447C27B22EA0ACF10035595A /* WatchTest Watch App */,
 				447C27C42EA0ACF20035595A /* WatchTest Watch AppTests */,
 				447C27C02EA0ACF10035595A /* WatchTest Watch AppUITests */,
+				447C30902EA5CA350035595A /* Frameworks */,
 				4405CACD2E73AD2D0036D199 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -190,6 +194,7 @@
 		447C27B22EA0ACF10035595A /* WatchTest Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				447C308D2EA5C7210035595A /* GameScene */,
 				447C27D42EA0C3E70035595A /* Views */,
 				447C27AD2EA0ACF10035595A /* Models */,
 				447C27AE2EA0ACF10035595A /* Assets.xcassets */,
@@ -253,6 +258,22 @@
 				447C27D72EA0C4000035595A /* ExchangeView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		447C308D2EA5C7210035595A /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				447C308E2EA5C73E0035595A /* TamagotchiScene.swift */,
+			);
+			path = GameScene;
+			sourceTree = "<group>";
+		};
+		447C30902EA5CA350035595A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				447C30912EA5CA350035595A /* SpriteKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -515,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				447C27B42EA0ACF10035595A /* ContentView.swift in Sources */,
+				447C308F2EA5C73E0035595A /* TamagotchiScene.swift in Sources */,
 				447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */,
 				447C27B52EA0ACF10035595A /* WatchTestApp.swift in Sources */,
 				447C27D32EA0BEA60035595A /* CurrencyManager.swift in Sources */,
