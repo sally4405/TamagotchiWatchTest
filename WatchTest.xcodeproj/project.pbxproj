@@ -25,6 +25,10 @@
 		447C27D62EA0C3F30035595A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D52EA0C3F30035595A /* MainView.swift */; };
 		447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D72EA0C4000035595A /* ExchangeView.swift */; };
 		447C308F2EA5C73E0035595A /* TamagotchiScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C308E2EA5C73E0035595A /* TamagotchiScene.swift */; };
+		447C53672EA772EC0035595A /* CharacterStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C53662EA772EC0035595A /* CharacterStats.swift */; };
+		447C53692EA777070035595A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C53682EA777070035595A /* Item.swift */; };
+		447C536B2EA777FC0035595A /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C536A2EA777FC0035595A /* Items.swift */; };
+		447C536D2EA779350035595A /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C536C2EA779350035595A /* InventoryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +111,10 @@
 		447C27D72EA0C4000035595A /* ExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeView.swift; sourceTree = "<group>"; };
 		447C308E2EA5C73E0035595A /* TamagotchiScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamagotchiScene.swift; sourceTree = "<group>"; };
 		447C30912EA5CA350035595A /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.5.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
+		447C53662EA772EC0035595A /* CharacterStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterStats.swift; sourceTree = "<group>"; };
+		447C53682EA777070035595A /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		447C536A2EA777FC0035595A /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		447C536C2EA779350035595A /* InventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +195,10 @@
 			children = (
 				447C27D02EA0AD180035595A /* StepCounter.swift */,
 				447C27D22EA0BEA60035595A /* CurrencyManager.swift */,
+				447C53662EA772EC0035595A /* CharacterStats.swift */,
+				447C53682EA777070035595A /* Item.swift */,
+				447C536A2EA777FC0035595A /* Items.swift */,
+				447C536C2EA779350035595A /* InventoryManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -536,11 +548,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				447C27B42EA0ACF10035595A /* ContentView.swift in Sources */,
+				447C53692EA777070035595A /* Item.swift in Sources */,
 				447C308F2EA5C73E0035595A /* TamagotchiScene.swift in Sources */,
 				447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */,
+				447C53672EA772EC0035595A /* CharacterStats.swift in Sources */,
 				447C27B52EA0ACF10035595A /* WatchTestApp.swift in Sources */,
+				447C536B2EA777FC0035595A /* Items.swift in Sources */,
 				447C27D32EA0BEA60035595A /* CurrencyManager.swift in Sources */,
 				447C27D62EA0C3F30035595A /* MainView.swift in Sources */,
+				447C536D2EA779350035595A /* InventoryManager.swift in Sources */,
 				447C27D12EA0AD180035595A /* StepCounter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
