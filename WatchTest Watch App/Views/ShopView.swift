@@ -25,7 +25,7 @@ struct ShopView: View {
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     ForEach(Items.foods) { item in
-                            shopItemCard(item: item)
+                            shopItemCard(item)
                     }
                 }
                 
@@ -33,7 +33,7 @@ struct ShopView: View {
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     ForEach(Items.toys) { item in
-                            shopItemCard(item: item)
+                            shopItemCard(item)
                     }
                 }
             }
@@ -42,7 +42,7 @@ struct ShopView: View {
     }
     
     @ViewBuilder
-    private func shopItemCard(item: Item) -> some View {
+    private func shopItemCard(_ item: Item) -> some View {
         VStack(spacing: 2) {
             Button {
                 currencyManager.spendCoins(item.price)
@@ -70,5 +70,13 @@ struct ShopView: View {
                     .font(.caption2)
             }
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        ShopView()
+            .environmentObject(CurrencyManager())
+            .environmentObject(InventoryManager())
     }
 }

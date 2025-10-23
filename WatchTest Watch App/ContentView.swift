@@ -28,6 +28,12 @@ struct ContentView: View {
                 } label: {
                     Label("상점", systemImage: "cart.fill")
                 }
+                
+                NavigationLink {
+                    InventoryView()
+                } label: {
+                    Label("인벤토리", systemImage: "bag.fill")
+                }
             }
             .navigationTitle("MENU")
         }
