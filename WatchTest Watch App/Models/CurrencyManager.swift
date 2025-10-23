@@ -62,11 +62,10 @@ class CurrencyManager: ObservableObject {
         saveData()
     }
     
-    func spendCoins(_ amount: Int) -> Bool {
-        guard currentCoins >= amount else { return false }
+    func spendCoins(_ amount: Int) {
+        guard currentCoins >= amount else { return }
         currentCoins -= amount
         saveData()
-        return true
     }
     
     func resetAll() {

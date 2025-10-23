@@ -12,7 +12,7 @@ struct Items {
     static let food1 = Item(
         id: "food1",
         imageName: "food1",
-        price: 10,
+        price: 1,
         category: .food,
         effects: ItemEffects(energy: nil, fullness: 20, happiness: 5)
     )
@@ -20,7 +20,7 @@ struct Items {
     static let food2 = Item(
         id: "food2",
         imageName: "food2",
-        price: 20,
+        price: 2,
         category: .food,
         effects: ItemEffects(energy: nil, fullness: 30, happiness: 10)
     )
@@ -28,7 +28,7 @@ struct Items {
     static let candy1 = Item(
         id: "candy1",
         imageName: "candy1",
-        price: 15,
+        price: 2,
         category: .food,
         effects: ItemEffects(energy: 5, fullness: 10, happiness: 15)
     )
@@ -36,7 +36,7 @@ struct Items {
     static let candy2 = Item(
         id: "candy2",
         imageName: "candy2",
-        price: 25,
+        price: 3,
         category: .food,
         effects: ItemEffects(energy: 10, fullness: 15, happiness: 20)
     )
@@ -45,7 +45,7 @@ struct Items {
     static let ball1 = Item(
         id: "ball1",
         imageName: "ball1",
-        price: 50,
+        price: 5,
         category: .toy,
         effects: ItemEffects(energy: -10, fullness: nil, happiness: 30)
     )
@@ -53,7 +53,7 @@ struct Items {
     static let gift1 = Item(
         id: "gift1",
         imageName: "gift1",
-        price: 100,
+        price: 1,
         category: .toy,
         effects: ItemEffects(energy: -5, fullness: nil, happiness: 40)
     )
@@ -61,7 +61,7 @@ struct Items {
     static let gift2 = Item(
         id: "gift2",
         imageName: "gift2",
-        price: 200,
+        price: 2,
         category: .toy,
         effects: ItemEffects(energy: -5, fullness: nil, happiness: 50)
     )

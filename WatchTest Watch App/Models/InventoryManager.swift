@@ -22,7 +22,7 @@ class InventoryManager: ObservableObject {
     }
     
     init() {
-        self.defaults = UserDefaults(suiteName: "group.com.example.watchtest") ?? .standard
+        self.defaults = UserDefaults(suiteName: "group.com.sello.watchtest") ?? .standard
         loadData()
     }
     

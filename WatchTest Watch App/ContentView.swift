@@ -22,6 +22,12 @@ struct ContentView: View {
                 } label: {
                     Label("코인 환전", systemImage: "dollarsign.circle.fill")
                 }
+                
+                NavigationLink {
+                    ShopView()
+                } label: {
+                    Label("상점", systemImage: "cart.fill")
+                }
             }
             .navigationTitle("MENU")
         }

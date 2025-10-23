@@ -11,12 +11,14 @@ import SwiftUI
 struct WatchTest_Watch_AppApp: App {
     @StateObject private var stepCounter = StepCounter()
     @StateObject private var currencyManager = CurrencyManager()
+    @StateObject private var inventoryManager = InventoryManager()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(stepCounter)
                 .environmentObject(currencyManager)
+                .environmentObject(inventoryManager)
         }
     }
 }
