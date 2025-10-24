@@ -19,6 +19,7 @@ class TamagotchiScene: SKScene {
     // MARK: - Supporting Types
     private struct CharacterParts {
         let lightBulb: SKSpriteNode
+        let sleepIndicator: SKSpriteNode
         let head: SKSpriteNode
         let body: SKSpriteNode
         let leftArm: SKSpriteNode
@@ -33,13 +34,16 @@ class TamagotchiScene: SKScene {
     
     // MARK: - Properties
     private var containerNode: SKNode?
+    
+    private var lightBulbNode: SKSpriteNode?
+    private var sleepIndicatorNode: SKSpriteNode?
+    
     private var bodyNode: SKSpriteNode?
     private var headNode: SKSpriteNode?
     private var leftArmNode: SKSpriteNode?
     private var rightArmNode: SKSpriteNode?
     private var leftLegNode: SKSpriteNode?
     private var rightLegNode: SKSpriteNode?
-    private var lightBulbNode: SKSpriteNode?
     
     // MARK: - Initialization
     override init() {
@@ -73,6 +77,7 @@ class TamagotchiScene: SKScene {
     private func createCharacterParts() -> CharacterParts {
         CharacterParts(
             lightBulb: createSpriteNode(name: "light_bulb"),
+            sleepIndicator: createSpriteNode(name: "sleep1"),
             head: createSpriteNode(name: "head"),
             body: createSpriteNode(name: "body"),
             leftArm: createSpriteNode(name: "left_arm"),
@@ -91,6 +96,10 @@ class TamagotchiScene: SKScene {
         var currentY = calculateTotalSize(parts: parts).height / 2
         
         currentY = layoutPart(parts.lightBulb, at: currentY, in: container, name: "light_bulb", zPosition: 10, topMargin: Layout.topMargin, bottomMargin: Layout.middleMargin, alpha: 0)
+        
+        _ = layoutPart(parts.sleepIndicator, at: currentY + 150, in: container, name: "sleep_indicator", zPosition: 100, topMargin: Layout.topMargin, bottomMargin: Layout.middleMargin, alpha: 0)
+        parts.sleepIndicator.setScale(2.0)
+        
         currentY = layoutPart(parts.head, at: currentY, in: container, name: "head", zPosition: 2)
         currentY = layoutPart(parts.body, at: currentY, in: container, name: "body", zPosition: 1)
         layoutArm(parts.leftArm, side: .left, body: parts.body, in: container)
@@ -99,6 +108,7 @@ class TamagotchiScene: SKScene {
         layoutLeg(parts.rightLeg, side: .right, body: parts.body, in: container)
         
         lightBulbNode = parts.lightBulb
+        sleepIndicatorNode = parts.sleepIndicator
         headNode = parts.head
         bodyNode = parts.body
         leftArmNode = parts.leftArm
@@ -205,6 +215,15 @@ class TamagotchiScene: SKScene {
         default:
             break
         }
+    }
+    
+    // MARK: - Effect Action
+    func showSleepIndicator() {
+        sleepIndicatorNode?.run(SKAction.fadeAlpha(to: 1, duration: 0.2))
+    }
+    
+    func hideSleepIndicator() {
+        sleepIndicatorNode?.run(SKAction.fadeAlpha(to: 0, duration: 0.2))
     }
 }
 

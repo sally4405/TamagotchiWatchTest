@@ -43,11 +43,16 @@ struct MainView: View {
                         SpriteView(scene: scene)
                             .frame(width: charaterViewSize, height: charaterViewSize)
                             .onTapGesture { location in
-                                scene.handleTap(
-                                    at: location,
-                                    viewWidth: charaterViewSize,
-                                    viewHeight: charaterViewSize
-                                )
+                                if characterStats.currentState == .sleeping {
+                                    characterStats.wakeUp()
+                                } else {
+                                    scene.handleTap(
+                                        at: location,
+                                        viewWidth: charaterViewSize,
+                                        viewHeight: charaterViewSize
+                                    )
+                                    
+                                }
                             }
                     }
                     
@@ -56,7 +61,11 @@ struct MainView: View {
                         VStack(spacing: 4) {
                             Spacer()
                             actionButton(icon: "bed.double.fill", color: .cyan) {
-                                print("sleep")
+                                if characterStats.currentState == .sleeping {
+                                    characterStats.wakeUp()
+                                } else {
+                                    characterStats.startSleeping()
+                                }
                             }
                             actionButton(icon: "fork.knife", color: .pink) {
                                 print("eat")
@@ -85,6 +94,13 @@ struct MainView: View {
             }
         }
         .navigationTitle("메인")
+        .onChange(of: characterStats.currentState) { oldValue, newValue in
+            if newValue == .sleeping {
+                scene.showSleepIndicator()
+            } else {
+                scene.hideSleepIndicator()
+            }
+        }
     }
     
     @ViewBuilder
@@ -94,7 +110,7 @@ struct MainView: View {
                 .font(.system(size: 8))
                 .foregroundStyle(color)
                 .frame(width: 10)
-                
+            
             
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
@@ -103,7 +119,7 @@ struct MainView: View {
                     RoundedRectangle(cornerRadius: 2)
                         .fill(color)
                         .frame(width: geometry.size.width * CGFloat(value) / 100)
-//                        .animation(.linear(duration: 0.2))
+                    //                        .animation(.linear(duration: 0.2))
                 }
             }
             .frame(width: 50, height: 8)
