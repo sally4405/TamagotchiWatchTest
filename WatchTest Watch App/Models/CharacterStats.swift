@@ -38,9 +38,12 @@ class CharacterStats: ObservableObject {
         self.defaults = UserDefaults(suiteName: "group.com.example.watchtest") ?? .standard
         
         if defaults.object(forKey: Keys.energy) == nil {
-            self.energy = Limits.max
-            self.fullness = Limits.max
-            self.happiness = Limits.max
+//            self.energy = Limits.max
+//            self.fullness = Limits.max
+//            self.happiness = Limits.max
+            self.energy = 100
+            self.fullness = 30
+            self.happiness = 0
             saveData()
         } else {
             self.energy = defaults.integer(forKey: Keys.energy)

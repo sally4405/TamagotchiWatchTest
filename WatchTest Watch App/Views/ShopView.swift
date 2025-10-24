@@ -47,7 +47,6 @@ struct ShopView: View {
             Button {
                 currencyManager.spendCoins(item.price)
                 inventoryManager.addItem(item.id)
-                print(inventoryManager.items)
             } label: {
                 Image(item.imageName)
                     .resizable()

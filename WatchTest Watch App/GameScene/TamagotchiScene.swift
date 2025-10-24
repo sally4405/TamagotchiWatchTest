@@ -180,8 +180,18 @@ class TamagotchiScene: SKScene {
     private func performAction(for node: SKNode) {
         switch node.name {
         case "body":
-            bodyNode?.parent?.run(jumpAction(height: 20, duration: 0.2))
-            lightBulbNode?.run(blinkAction(duration: 0.2, wait: 0.3))
+            let randomValue: Int = Int.random(in: 1...3)
+            switch randomValue {
+            case 1:
+                lightBulbNode?.run(blinkAction(duration: 0.2, wait: 0.3))
+            case 2:
+                bodyNode?.parent?.run(jumpAction(height: 20, duration: 0.2, repeatCount: 2))
+                leftLegNode?.run(spreadAction(angle: -.pi / 6, duration: 0.2, repeatCount: 2))
+                rightLegNode?.run(spreadAction(angle: .pi / 6, duration: 0.2, repeatCount: 2))
+            default:
+                leftArmNode?.run(spreadAction(angle: -.pi / 4, duration: 0.2, repeatCount: 2))
+                rightArmNode?.run(spreadAction(angle: .pi / 4, duration: 0.2, repeatCount: 2))
+            }
         case "head":
             headNode?.run(tiltAction(angle: -.pi / 16, duration: 0.3))
         case "left_arm":
@@ -199,33 +209,52 @@ class TamagotchiScene: SKScene {
 }
 
 extension TamagotchiScene {
-    private func jumpAction(height: CGFloat, duration: TimeInterval) -> SKAction {
-        return SKAction.sequence([
-            SKAction.moveBy(x: 0, y: height, duration: duration),
-            SKAction.moveBy(x: 0, y: -height, duration: duration)
-        ])
+    private func jumpAction(height: CGFloat, duration: TimeInterval, repeatCount: Int = 1) -> SKAction {
+        let actions = Array(
+            repeating: [
+                SKAction.moveBy(x: 0, y: height, duration: duration),
+                SKAction.moveBy(x: 0, y: -height, duration: duration)
+            ],
+            count: repeatCount
+        ).flatMap { $0 }
+        return SKAction.sequence(actions)
     }
     
-    private func blinkAction(duration: TimeInterval, wait: TimeInterval = 0) -> SKAction {
-        return SKAction.sequence([
-            SKAction.fadeAlpha(to: 1.0, duration: duration),
-            SKAction.wait(forDuration: wait),
-            SKAction.fadeAlpha(to: 0, duration: duration)
-        ])
+    private func blinkAction(duration: TimeInterval, wait: TimeInterval = 0, repeatCount: Int = 1) -> SKAction {
+        let actions = Array(
+            repeating: [
+                SKAction.fadeAlpha(to: 1.0, duration: duration),
+                SKAction.wait(forDuration: wait),
+                SKAction.fadeAlpha(to: 0, duration: duration)
+            ],
+            count: repeatCount
+        ).flatMap { $0 }
+        
+        return SKAction.sequence(actions)
     }
     
-    private func tiltAction(angle: CGFloat, duration: TimeInterval) -> SKAction {
-        return SKAction.sequence([
-            SKAction.rotate(toAngle: angle, duration: duration),
-            SKAction.rotate(toAngle: -angle, duration: duration),
-            SKAction.rotate(toAngle: 0, duration: duration),
-        ])
+    private func tiltAction(angle: CGFloat, duration: TimeInterval, repeatCount: Int = 1) -> SKAction {
+        let actions = Array(
+            repeating: [
+                SKAction.rotate(toAngle: angle, duration: duration),
+                SKAction.rotate(toAngle: -angle, duration: duration),
+                SKAction.rotate(toAngle: 0, duration: duration),
+            ],
+            count: repeatCount
+        ).flatMap { $0 }
+        
+        return SKAction.sequence(actions)
     }
     
-    private func spreadAction(angle: CGFloat, duration: TimeInterval) -> SKAction {
-        return SKAction.sequence([
-            SKAction.rotate(toAngle: angle, duration: duration),
-            SKAction.rotate(toAngle: 0, duration: duration),
-        ])
+    private func spreadAction(angle: CGFloat, duration: TimeInterval, repeatCount: Int = 1) -> SKAction {
+        let actions = Array(
+            repeating: [
+                SKAction.rotate(toAngle: angle, duration: duration),
+                SKAction.rotate(toAngle: 0, duration: duration),
+            ],
+            count: repeatCount
+        ).flatMap { $0 }
+        
+        return SKAction.sequence(actions)
     }
 }
