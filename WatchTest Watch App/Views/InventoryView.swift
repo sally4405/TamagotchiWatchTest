@@ -44,6 +44,7 @@ struct InventoryView: View {
                                 inventoryItemCard(item)
                             }
                         }
+                        .padding(4)
                     }
                 }
             }
@@ -53,7 +54,6 @@ struct InventoryView: View {
     
     @ViewBuilder
     private func inventoryItemCard(_ item: Item) -> some View {
-        VStack(spacing: 2) {
             ZStack(alignment: .topTrailing) {
                 Image(item.imageName)
                     .resizable()
@@ -72,7 +72,6 @@ struct InventoryView: View {
                     .offset(x: 4, y: -4)
             }
         }
-    }
 }
 
 #Preview {

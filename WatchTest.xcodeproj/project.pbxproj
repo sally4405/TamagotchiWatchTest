@@ -10,6 +10,8 @@
 		4405CAF02E73AD2F0036D199 /* WatchTest Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4405CAEF2E73AD2F0036D199 /* WatchTest Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		442534982EAA127B000455F9 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442534972EAA127B000455F9 /* ShopView.swift */; };
 		4425349A2EAA1D3E000455F9 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442534992EAA1D3E000455F9 /* InventoryView.swift */; };
+		4425349C2EAB49F4000455F9 /* ItemSelectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425349B2EAB49F4000455F9 /* ItemSelectionSheet.swift */; };
+		4425349E2EAB5858000455F9 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425349D2EAB5858000455F9 /* DebugView.swift */; };
 		447C27B32EA0ACF10035595A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 447C27AE2EA0ACF10035595A /* Assets.xcassets */; };
 		447C27B42EA0ACF10035595A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27AF2EA0ACF10035595A /* ContentView.swift */; };
 		447C27B52EA0ACF10035595A /* WatchTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27B12EA0ACF10035595A /* WatchTestApp.swift */; };
@@ -94,6 +96,8 @@
 		4405CB082E73AD300036D199 /* WatchTest Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WatchTest Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		442534972EAA127B000455F9 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		442534992EAA1D3E000455F9 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+		4425349B2EAB49F4000455F9 /* ItemSelectionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSelectionSheet.swift; sourceTree = "<group>"; };
+		4425349D2EAB5858000455F9 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		447C27AE2EA0ACF10035595A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		447C27AF2EA0ACF10035595A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		447C27B02EA0ACF10035595A /* WatchTest Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTest Watch App.entitlements"; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 				447C27D72EA0C4000035595A /* ExchangeView.swift */,
 				442534972EAA127B000455F9 /* ShopView.swift */,
 				442534992EAA1D3E000455F9 /* InventoryView.swift */,
+				4425349B2EAB49F4000455F9 /* ItemSelectionSheet.swift */,
+				4425349D2EAB5858000455F9 /* DebugView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 				4425349A2EAA1D3E000455F9 /* InventoryView.swift in Sources */,
 				447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */,
 				447C53672EA772EC0035595A /* CharacterStats.swift in Sources */,
+				4425349E2EAB5858000455F9 /* DebugView.swift in Sources */,
 				447C27B52EA0ACF10035595A /* WatchTestApp.swift in Sources */,
 				442534982EAA127B000455F9 /* ShopView.swift in Sources */,
 				447C536B2EA777FC0035595A /* Items.swift in Sources */,
@@ -566,6 +573,7 @@
 				447C27D62EA0C3F30035595A /* MainView.swift in Sources */,
 				447C536D2EA779350035595A /* InventoryManager.swift in Sources */,
 				447C27D12EA0AD180035595A /* StepCounter.swift in Sources */,
+				4425349C2EAB49F4000455F9 /* ItemSelectionSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

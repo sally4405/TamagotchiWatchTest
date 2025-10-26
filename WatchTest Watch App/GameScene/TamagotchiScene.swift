@@ -225,6 +225,54 @@ class TamagotchiScene: SKScene {
     func hideSleepIndicator() {
         sleepIndicatorNode?.run(SKAction.fadeAlpha(to: 0, duration: 0.2))
     }
+    
+    func showHeartEffect() {
+        let heartNode = SKSpriteNode(imageNamed: "heart1")
+//        heartNode.setScale(2.0)
+        heartNode.zPosition = 101
+        
+        if let head = headNode {
+            heartNode.position = CGPoint(x: head.position.x, y: head.position.y + 30)
+        } else {
+            heartNode.position = CGPoint(x: 0, y: 30)
+        }
+
+        containerNode?.addChild(heartNode)
+
+        let sequence = SKAction.sequence([
+            SKAction.fadeAlpha(to: 1.0, duration: 0.2),
+            SKAction.wait(forDuration: 0.5),
+            SKAction.fadeAlpha(to: 0, duration: 0.2),
+            SKAction.removeFromParent()
+        ])
+
+        heartNode.run(sequence)
+    }
+    
+    func showItemEffect(itemIamgeName: String) {
+        let itemNode = SKSpriteNode(imageNamed: itemIamgeName)
+//        itemNode.setScale(2.0)
+        itemNode.zPosition = 101
+        
+        if let body = bodyNode {
+            itemNode.position = CGPoint(x: body.position.x - 50, y: body.position.y)
+        } else {
+            itemNode.position = CGPoint(x: -50, y: 0)
+        }
+        
+        containerNode?.addChild(itemNode)
+        
+        let sequence = SKAction.sequence([
+            SKAction.fadeAlpha(to: 1.0, duration: 0.2),
+            SKAction.wait(forDuration: 0.5),
+            SKAction.fadeAlpha(to: 0, duration: 0.2),
+            SKAction.removeFromParent()
+        ])
+        
+        itemNode.run(sequence) { [weak self] in
+            self?.showHeartEffect()
+        }
+    }
 }
 
 extension TamagotchiScene {

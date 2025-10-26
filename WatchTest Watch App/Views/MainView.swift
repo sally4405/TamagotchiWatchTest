@@ -15,6 +15,8 @@ struct MainView: View {
     private let charaterViewSize: CGFloat = 100
     @State private var roomNumber: Int = 1
     @State private var isPark: Bool = false
+    @State private var showFoodSelection: Bool = false
+    @State private var showToySelection: Bool = false
     
     var body: some View {
         ScrollView {
@@ -51,7 +53,6 @@ struct MainView: View {
                                         viewWidth: charaterViewSize,
                                         viewHeight: charaterViewSize
                                     )
-                                    
                                 }
                             }
                     }
@@ -61,17 +62,13 @@ struct MainView: View {
                         VStack(spacing: 4) {
                             Spacer()
                             actionButton(icon: "bed.double.fill", color: .cyan) {
-                                if characterStats.currentState == .sleeping {
-                                    characterStats.wakeUp()
-                                } else {
-                                    characterStats.startSleeping()
-                                }
+                                characterStats.startSleeping()
                             }
                             actionButton(icon: "fork.knife", color: .pink) {
-                                print("eat")
+                                showFoodSelection = true
                             }
                             actionButton(icon: "gamecontroller.fill", color: .yellow) {
-                                print("play")
+                                showToySelection = true
                             }
                         }
                         .padding(4)
@@ -99,6 +96,16 @@ struct MainView: View {
                 scene.showSleepIndicator()
             } else {
                 scene.hideSleepIndicator()
+            }
+        }
+        .sheet(isPresented: $showFoodSelection) {
+            ItemSelectionSheet(category: .food) { item in
+                scene.showItemEffect(itemIamgeName: item.imageName)
+            }
+        }
+        .sheet(isPresented: $showToySelection) {
+            ItemSelectionSheet(category: .toy) { item in
+                scene.showItemEffect(itemIamgeName: item.imageName)
             }
         }
     }
@@ -139,12 +146,14 @@ struct MainView: View {
                 .padding(2)
         }
         .buttonStyle(PlainButtonStyle())
-        .background(color.opacity(0.5))
+        .background(color.opacity(characterStats.currentState == .sleeping ? 0.2 : 0.5))
         .clipShape(Circle())
         .overlay(
             Circle()
                 .stroke(Color.white, lineWidth: 1)
         )
+        .disabled(characterStats.currentState == .sleeping)
+        .opacity(characterStats.currentState == .sleeping ? 0.4 : 1.0)
     }
     
     @ViewBuilder

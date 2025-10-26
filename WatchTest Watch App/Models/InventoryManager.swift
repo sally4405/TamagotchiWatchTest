@@ -31,16 +31,16 @@ class InventoryManager: ObservableObject {
         items[itemId] = currentCount + count
     }
     
-    func useItem(_ itemId: String) -> Bool {
+    func useItem(_ itemId: String) {
         guard let currentCount = items[itemId], currentCount > 0 else {
-            return false
+            return
         }
         
         items[itemId] = currentCount - 1
         if items[itemId] == 0 {
             items.removeValue(forKey: itemId)
         }
-        return true
+        return
     }
     
     func getItemCount(_ itemId: String) -> Int {

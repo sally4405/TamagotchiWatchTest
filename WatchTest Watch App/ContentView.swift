@@ -34,6 +34,12 @@ struct ContentView: View {
                 } label: {
                     Label("인벤토리", systemImage: "bag.fill")
                 }
+                
+                NavigationLink {
+                    DebugView()
+                } label: {
+                    Label("Debug", systemImage: "ladybug.fill")
+                }
             }
             .navigationTitle("MENU")
         }
@@ -42,6 +48,8 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(CharacterStats())
         .environmentObject(StepCounter())
         .environmentObject(CurrencyManager())
+        .environmentObject(InventoryManager())
 }
