@@ -100,13 +100,25 @@ struct MainView: View {
         }
         .sheet(isPresented: $showFoodSelection) {
             ItemSelectionSheet(category: .food) { item in
-                scene.showItemEffect(itemImageName: item.imageName)
+                showStatChanges(for: item.effects)
             }
         }
         .sheet(isPresented: $showToySelection) {
             ItemSelectionSheet(category: .toy) { item in
-                scene.showItemEffect(itemImageName: item.imageName)
+                showStatChanges(for: item.effects)
             }
+        }
+    }
+    
+    private func showStatChanges(for effects: ItemEffects) {
+        if let energe = effects.energy, energe != 0 {
+            scene.showStatChange(text: energe > 0 ? "+\(energe)" : "\(energe)", color: .cyan)
+        }
+        if let fullness = effects.fullness, fullness != 0 {
+            scene.showStatChange(text: fullness > 0 ? "+\(fullness)" : "\(fullness)", color: UIColor(.pink))
+        }
+        if let happiness = effects.happiness, happiness != 0 {
+            scene.showStatChange(text: happiness > 0 ? "+\(happiness)" : "\(happiness)", color: .yellow)
         }
     }
     

@@ -154,6 +154,29 @@ class TamagotchiScene: SKScene {
         }
     }
     
+    func showStatChange(text: String, color: UIColor) {
+        guard let characterNode = characterNode else { return }
+        
+        let label = SKLabelNode(text: text)
+        label.fontName = ".AppleSystemUIFontBlack"
+        label.fontSize = 250
+        label.fontColor = color
+        
+        let randomX = CGFloat.random(in: -400...400)
+        let randomY = CGFloat.random(in: -400...400)
+        label.position = CGPoint(x: characterNode.position.x + randomX, y: characterNode.position.y + randomY)
+        label.zPosition = 110
+        
+        containerNode?.addChild(label)
+        
+        let moveUp = SKAction.moveBy(x: 0, y: 200, duration: 2.0)
+        let fadeOut = SKAction.fadeOut(withDuration: 2.0)
+        let group = SKAction.group([moveUp, fadeOut])
+        let remove = SKAction.removeFromParent()
+        
+        label.run(SKAction.sequence([group, remove]))
+    }
+    
     private func showEffect(imageName: String, position: EffectPosition, duration: TimeInterval? = nil, completion: (() -> Void)? = nil) {
         let node = position == .top ? effectTopNode : effectItemNode
         
