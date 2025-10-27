@@ -42,28 +42,29 @@ struct ItemSelectionSheet: View {
     
     @ViewBuilder
     private func itemCard(_ item: Item) -> some View {
-        Button {
-            useItem(item)
-        } label: {
-            ZStack(alignment: .topTrailing) {
+        ZStack(alignment: .topTrailing) {
+            Button {
+                useItem(item)
+            } label: {
                 Image(item.imageName)
                     .resizable()
                     .frame(width: 40, height: 40)
                     .padding(2)
-                Text("\(inventoryManager.getItemCount(item.id))")
-                    .font(.system(size: 10, weight: .bold))
-                    .foregroundStyle(.white)
-                    .padding(4)
-                    .background(Color.red)
-                    .clipShape(Circle())
-                    .offset(x: 4, y: -4)
             }
+            .buttonStyle(PlainButtonStyle())
+            .overlay(
+                Circle()
+                    .stroke(Color.gray, lineWidth: 1)
+            )
+            
+            Text("\(inventoryManager.getItemCount(item.id))")
+                .font(.system(size: 10, weight: .bold))
+                .foregroundStyle(.white)
+                .padding(4)
+                .background(Color.red)
+                .clipShape(Circle())
+                .offset(x: 4, y: -4)
         }
-        .buttonStyle(PlainButtonStyle())
-        .overlay(
-            Circle()
-                .stroke(Color.gray, lineWidth: 1)
-        )
     }
     
     private func useItem(_ item: Item) {

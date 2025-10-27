@@ -100,12 +100,12 @@ struct MainView: View {
         }
         .sheet(isPresented: $showFoodSelection) {
             ItemSelectionSheet(category: .food) { item in
-                scene.showItemEffect(itemIamgeName: item.imageName)
+                scene.showItemEffect(itemImageName: item.imageName)
             }
         }
         .sheet(isPresented: $showToySelection) {
             ItemSelectionSheet(category: .toy) { item in
-                scene.showItemEffect(itemIamgeName: item.imageName)
+                scene.showItemEffect(itemImageName: item.imageName)
             }
         }
     }

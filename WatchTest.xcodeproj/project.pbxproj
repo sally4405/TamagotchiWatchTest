@@ -33,6 +33,7 @@
 		447C53692EA777070035595A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C53682EA777070035595A /* Item.swift */; };
 		447C536B2EA777FC0035595A /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C536A2EA777FC0035595A /* Items.swift */; };
 		447C536D2EA779350035595A /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C536C2EA779350035595A /* InventoryManager.swift */; };
+		449D94C72EAF2DFF0093B041 /* TamagotchiCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449D94C62EAF2DFF0093B041 /* TamagotchiCharacter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		447C53682EA777070035595A /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		447C536A2EA777FC0035595A /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		447C536C2EA779350035595A /* InventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
+		449D94C62EAF2DFF0093B041 /* TamagotchiCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamagotchiCharacter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				447C308E2EA5C73E0035595A /* TamagotchiScene.swift */,
+				449D94C62EAF2DFF0093B041 /* TamagotchiCharacter.swift */,
 			);
 			path = GameScene;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 			files = (
 				447C27B42EA0ACF10035595A /* ContentView.swift in Sources */,
 				447C53692EA777070035595A /* Item.swift in Sources */,
+				449D94C72EAF2DFF0093B041 /* TamagotchiCharacter.swift in Sources */,
 				447C308F2EA5C73E0035595A /* TamagotchiScene.swift in Sources */,
 				4425349A2EAA1D3E000455F9 /* InventoryView.swift in Sources */,
 				447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */,
