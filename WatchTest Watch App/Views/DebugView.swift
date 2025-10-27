@@ -61,7 +61,7 @@ struct DebugView: View {
                         Text("\(characterStats.fullness)")
                             .font(.caption)
                             .frame(width: 50)
-                            .foregroundStyle(Color.orange)
+                            .foregroundStyle(Color.pink)
                         debugButton("+10") {
                             characterStats.fullness = min(100, characterStats.fullness + 10)
                         }
