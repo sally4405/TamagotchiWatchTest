@@ -8,32 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4405CAF02E73AD2F0036D199 /* WatchTest Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4405CAEF2E73AD2F0036D199 /* WatchTest Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		442534982EAA127B000455F9 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442534972EAA127B000455F9 /* ShopView.swift */; };
-		4425349A2EAA1D3E000455F9 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442534992EAA1D3E000455F9 /* InventoryView.swift */; };
-		4425349C2EAB49F4000455F9 /* ItemSelectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425349B2EAB49F4000455F9 /* ItemSelectionSheet.swift */; };
-		4425349E2EAB5858000455F9 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425349D2EAB5858000455F9 /* DebugView.swift */; };
-		447C27B32EA0ACF10035595A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 447C27AE2EA0ACF10035595A /* Assets.xcassets */; };
-		447C27B42EA0ACF10035595A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27AF2EA0ACF10035595A /* ContentView.swift */; };
-		447C27B52EA0ACF10035595A /* WatchTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27B12EA0ACF10035595A /* WatchTestApp.swift */; };
-		447C27B82EA0ACF10035595A /* WatchTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27B62EA0ACF10035595A /* WatchTestTests.swift */; };
-		447C27BC2EA0ACF10035595A /* WatchTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27B92EA0ACF10035595A /* WatchTestUITests.swift */; };
-		447C27BD2EA0ACF10035595A /* WatchTestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27BA2EA0ACF10035595A /* WatchTestUITestsLaunchTests.swift */; };
-		447C27C12EA0ACF10035595A /* WatchTest_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27BE2EA0ACF10035595A /* WatchTest_Watch_AppUITests.swift */; };
-		447C27C22EA0ACF10035595A /* WatchTest_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27BF2EA0ACF10035595A /* WatchTest_Watch_AppUITestsLaunchTests.swift */; };
-		447C27C52EA0ACF20035595A /* WatchTest_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27C32EA0ACF20035595A /* WatchTest_Watch_AppTests.swift */; };
-		447C27CC2EA0ACF20035595A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 447C27C62EA0ACF20035595A /* Assets.xcassets */; };
-		447C27CE2EA0ACF20035595A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27C72EA0ACF20035595A /* ContentView.swift */; };
-		447C27CF2EA0ACF20035595A /* WatchTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27CA2EA0ACF20035595A /* WatchTestApp.swift */; };
-		447C27D12EA0AD180035595A /* StepCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D02EA0AD180035595A /* StepCounter.swift */; };
-		447C27D32EA0BEA60035595A /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D22EA0BEA60035595A /* CurrencyManager.swift */; };
-		447C27D62EA0C3F30035595A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D52EA0C3F30035595A /* MainView.swift */; };
-		447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C27D72EA0C4000035595A /* ExchangeView.swift */; };
-		447C308F2EA5C73E0035595A /* TamagotchiScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C308E2EA5C73E0035595A /* TamagotchiScene.swift */; };
-		447C53672EA772EC0035595A /* CharacterStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C53662EA772EC0035595A /* CharacterStats.swift */; };
-		447C53692EA777070035595A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C53682EA777070035595A /* Item.swift */; };
-		447C536B2EA777FC0035595A /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C536A2EA777FC0035595A /* Items.swift */; };
-		447C536D2EA779350035595A /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C536C2EA779350035595A /* InventoryManager.swift */; };
-		449D94C72EAF2DFF0093B041 /* TamagotchiCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449D94C62EAF2DFF0093B041 /* TamagotchiCharacter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,36 +69,7 @@
 		4405CAEF2E73AD2F0036D199 /* WatchTest Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchTest Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4405CAFE2E73AD300036D199 /* WatchTest Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WatchTest Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4405CB082E73AD300036D199 /* WatchTest Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WatchTest Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		442534972EAA127B000455F9 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
-		442534992EAA1D3E000455F9 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
-		4425349B2EAB49F4000455F9 /* ItemSelectionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSelectionSheet.swift; sourceTree = "<group>"; };
-		4425349D2EAB5858000455F9 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
-		447C27AE2EA0ACF10035595A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		447C27AF2EA0ACF10035595A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		447C27B02EA0ACF10035595A /* WatchTest Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTest Watch App.entitlements"; sourceTree = "<group>"; };
-		447C27B12EA0ACF10035595A /* WatchTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTestApp.swift; sourceTree = "<group>"; };
-		447C27B62EA0ACF10035595A /* WatchTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTestTests.swift; sourceTree = "<group>"; };
-		447C27B92EA0ACF10035595A /* WatchTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTestUITests.swift; sourceTree = "<group>"; };
-		447C27BA2EA0ACF10035595A /* WatchTestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTestUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		447C27BE2EA0ACF10035595A /* WatchTest_Watch_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTest_Watch_AppUITests.swift; sourceTree = "<group>"; };
-		447C27BF2EA0ACF10035595A /* WatchTest_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTest_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		447C27C32EA0ACF20035595A /* WatchTest_Watch_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTest_Watch_AppTests.swift; sourceTree = "<group>"; };
-		447C27C62EA0ACF20035595A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		447C27C72EA0ACF20035595A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		447C27C82EA0ACF20035595A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		447C27C92EA0ACF20035595A /* WatchTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchTest.entitlements; sourceTree = "<group>"; };
-		447C27CA2EA0ACF20035595A /* WatchTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTestApp.swift; sourceTree = "<group>"; };
-		447C27D02EA0AD180035595A /* StepCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCounter.swift; sourceTree = "<group>"; };
-		447C27D22EA0BEA60035595A /* CurrencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
-		447C27D52EA0C3F30035595A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		447C27D72EA0C4000035595A /* ExchangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeView.swift; sourceTree = "<group>"; };
-		447C308E2EA5C73E0035595A /* TamagotchiScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamagotchiScene.swift; sourceTree = "<group>"; };
 		447C30912EA5CA350035595A /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.5.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
-		447C53662EA772EC0035595A /* CharacterStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterStats.swift; sourceTree = "<group>"; };
-		447C53682EA777070035595A /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		447C536A2EA777FC0035595A /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
-		447C536C2EA779350035595A /* InventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
-		449D94C62EAF2DFF0093B041 /* TamagotchiCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamagotchiCharacter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -142,6 +87,16 @@
 			);
 			target = 4405CAEE2E73AD2F0036D199 /* WatchTest Watch App */;
 		};
+		44DAD7052EB86E1E004ED43B /* Exceptions for "WatchTest" folder in "WatchTest" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				ContentView.swift,
+				Models/TamagotchiManager.swift,
+				WatchTestApp.swift,
+			);
+			target = 4405CACB2E73AD2D0036D199 /* WatchTest */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -154,14 +109,37 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		44DAD6F42EB863B3004ED43B /* Models */ = {
+		44DAD7002EB86E1E004ED43B /* WatchTest */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Models;
+			exceptions = (
+				44DAD7052EB86E1E004ED43B /* Exceptions for "WatchTest" folder in "WatchTest" target */,
+			);
+			path = WatchTest;
 			sourceTree = "<group>";
 		};
-		44DAD6F72EB86DCD004ED43B /* Views */ = {
+		44DAD7072EB86E23004ED43B /* WatchTestTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Views;
+			path = WatchTestTests;
+			sourceTree = "<group>";
+		};
+		44DAD71E2EB86E30004ED43B /* WatchTest Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "WatchTest Watch App";
+			sourceTree = "<group>";
+		};
+		44DAD7322EB86E35004ED43B /* WatchTestUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WatchTestUITests;
+			sourceTree = "<group>";
+		};
+		44DAD7372EB86E41004ED43B /* WatchTest Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "WatchTest Watch AppUITests";
+			sourceTree = "<group>";
+		};
+		44DAD73B2EB86E41004ED43B /* WatchTest Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "WatchTest Watch AppTests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -216,12 +194,12 @@
 			isa = PBXGroup;
 			children = (
 				4412B1AF2EB8425A0082A111 /* Shared */,
-				447C27CB2EA0ACF20035595A /* WatchTest */,
-				447C27B72EA0ACF10035595A /* WatchTestTests */,
-				447C27BB2EA0ACF10035595A /* WatchTestUITests */,
-				447C27B22EA0ACF10035595A /* WatchTest Watch App */,
-				447C27C42EA0ACF20035595A /* WatchTest Watch AppTests */,
-				447C27C02EA0ACF10035595A /* WatchTest Watch AppUITests */,
+				44DAD7002EB86E1E004ED43B /* WatchTest */,
+				44DAD7072EB86E23004ED43B /* WatchTestTests */,
+				44DAD7322EB86E35004ED43B /* WatchTestUITests */,
+				44DAD71E2EB86E30004ED43B /* WatchTest Watch App */,
+				44DAD73B2EB86E41004ED43B /* WatchTest Watch AppTests */,
+				44DAD7372EB86E41004ED43B /* WatchTest Watch AppUITests */,
 				447C30902EA5CA350035595A /* Frameworks */,
 				4405CACD2E73AD2D0036D199 /* Products */,
 			);
@@ -238,103 +216,6 @@
 				4405CB082E73AD300036D199 /* WatchTest Watch AppUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		447C27AD2EA0ACF10035595A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				447C27D02EA0AD180035595A /* StepCounter.swift */,
-				447C27D22EA0BEA60035595A /* CurrencyManager.swift */,
-				447C53662EA772EC0035595A /* CharacterStats.swift */,
-				447C53682EA777070035595A /* Item.swift */,
-				447C536A2EA777FC0035595A /* Items.swift */,
-				447C536C2EA779350035595A /* InventoryManager.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		447C27B22EA0ACF10035595A /* WatchTest Watch App */ = {
-			isa = PBXGroup;
-			children = (
-				447C308D2EA5C7210035595A /* GameScene */,
-				447C27D42EA0C3E70035595A /* Views */,
-				447C27AD2EA0ACF10035595A /* Models */,
-				447C27AE2EA0ACF10035595A /* Assets.xcassets */,
-				447C27AF2EA0ACF10035595A /* ContentView.swift */,
-				447C27B02EA0ACF10035595A /* WatchTest Watch App.entitlements */,
-				447C27B12EA0ACF10035595A /* WatchTestApp.swift */,
-			);
-			path = "WatchTest Watch App";
-			sourceTree = "<group>";
-		};
-		447C27B72EA0ACF10035595A /* WatchTestTests */ = {
-			isa = PBXGroup;
-			children = (
-				447C27B62EA0ACF10035595A /* WatchTestTests.swift */,
-			);
-			path = WatchTestTests;
-			sourceTree = "<group>";
-		};
-		447C27BB2EA0ACF10035595A /* WatchTestUITests */ = {
-			isa = PBXGroup;
-			children = (
-				447C27B92EA0ACF10035595A /* WatchTestUITests.swift */,
-				447C27BA2EA0ACF10035595A /* WatchTestUITestsLaunchTests.swift */,
-			);
-			path = WatchTestUITests;
-			sourceTree = "<group>";
-		};
-		447C27C02EA0ACF10035595A /* WatchTest Watch AppUITests */ = {
-			isa = PBXGroup;
-			children = (
-				447C27BE2EA0ACF10035595A /* WatchTest_Watch_AppUITests.swift */,
-				447C27BF2EA0ACF10035595A /* WatchTest_Watch_AppUITestsLaunchTests.swift */,
-			);
-			path = "WatchTest Watch AppUITests";
-			sourceTree = "<group>";
-		};
-		447C27C42EA0ACF20035595A /* WatchTest Watch AppTests */ = {
-			isa = PBXGroup;
-			children = (
-				447C27C32EA0ACF20035595A /* WatchTest_Watch_AppTests.swift */,
-			);
-			path = "WatchTest Watch AppTests";
-			sourceTree = "<group>";
-		};
-		447C27CB2EA0ACF20035595A /* WatchTest */ = {
-			isa = PBXGroup;
-			children = (
-				44DAD6F72EB86DCD004ED43B /* Views */,
-				44DAD6F42EB863B3004ED43B /* Models */,
-				447C27C62EA0ACF20035595A /* Assets.xcassets */,
-				447C27C72EA0ACF20035595A /* ContentView.swift */,
-				447C27C82EA0ACF20035595A /* Info.plist */,
-				447C27C92EA0ACF20035595A /* WatchTest.entitlements */,
-				447C27CA2EA0ACF20035595A /* WatchTestApp.swift */,
-			);
-			path = WatchTest;
-			sourceTree = "<group>";
-		};
-		447C27D42EA0C3E70035595A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				447C27D52EA0C3F30035595A /* MainView.swift */,
-				447C27D72EA0C4000035595A /* ExchangeView.swift */,
-				442534972EAA127B000455F9 /* ShopView.swift */,
-				442534992EAA1D3E000455F9 /* InventoryView.swift */,
-				4425349B2EAB49F4000455F9 /* ItemSelectionSheet.swift */,
-				4425349D2EAB5858000455F9 /* DebugView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		447C308D2EA5C7210035595A /* GameScene */ = {
-			isa = PBXGroup;
-			children = (
-				447C308E2EA5C73E0035595A /* TamagotchiScene.swift */,
-				449D94C62EAF2DFF0093B041 /* TamagotchiCharacter.swift */,
-			);
-			path = GameScene;
 			sourceTree = "<group>";
 		};
 		447C30902EA5CA350035595A /* Frameworks */ = {
@@ -362,10 +243,6 @@
 			dependencies = (
 				4405CAF22E73AD2F0036D199 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				44DAD6F42EB863B3004ED43B /* Models */,
-				44DAD6F72EB86DCD004ED43B /* Views */,
-			);
 			name = WatchTest;
 			packageProductDependencies = (
 			);
@@ -385,6 +262,9 @@
 			);
 			dependencies = (
 				4405CADB2E73AD2F0036D199 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				44DAD7072EB86E23004ED43B /* WatchTestTests */,
 			);
 			name = WatchTestTests;
 			packageProductDependencies = (
@@ -406,6 +286,9 @@
 			dependencies = (
 				4405CAE52E73AD2F0036D199 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				44DAD7322EB86E35004ED43B /* WatchTestUITests */,
+			);
 			name = WatchTestUITests;
 			packageProductDependencies = (
 			);
@@ -424,6 +307,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				44DAD71E2EB86E30004ED43B /* WatchTest Watch App */,
 			);
 			name = "WatchTest Watch App";
 			packageProductDependencies = (
@@ -445,6 +331,9 @@
 			dependencies = (
 				4405CB002E73AD300036D199 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				44DAD73B2EB86E41004ED43B /* WatchTest Watch AppTests */,
+			);
 			name = "WatchTest Watch AppTests";
 			packageProductDependencies = (
 			);
@@ -464,6 +353,9 @@
 			);
 			dependencies = (
 				4405CB0A2E73AD300036D199 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				44DAD7372EB86E41004ED43B /* WatchTest Watch AppUITests */,
 			);
 			name = "WatchTest Watch AppUITests";
 			packageProductDependencies = (
@@ -535,7 +427,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27CC2EA0ACF20035595A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,7 +448,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27B32EA0ACF10035595A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,8 +472,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27CE2EA0ACF20035595A /* ContentView.swift in Sources */,
-				447C27CF2EA0ACF20035595A /* WatchTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,7 +479,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27B82EA0ACF10035595A /* WatchTestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,8 +486,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27BC2EA0ACF10035595A /* WatchTestUITests.swift in Sources */,
-				447C27BD2EA0ACF10035595A /* WatchTestUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,22 +493,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27B42EA0ACF10035595A /* ContentView.swift in Sources */,
-				447C53692EA777070035595A /* Item.swift in Sources */,
-				449D94C72EAF2DFF0093B041 /* TamagotchiCharacter.swift in Sources */,
-				447C308F2EA5C73E0035595A /* TamagotchiScene.swift in Sources */,
-				4425349A2EAA1D3E000455F9 /* InventoryView.swift in Sources */,
-				447C27D82EA0C4000035595A /* ExchangeView.swift in Sources */,
-				447C53672EA772EC0035595A /* CharacterStats.swift in Sources */,
-				4425349E2EAB5858000455F9 /* DebugView.swift in Sources */,
-				447C27B52EA0ACF10035595A /* WatchTestApp.swift in Sources */,
-				442534982EAA127B000455F9 /* ShopView.swift in Sources */,
-				447C536B2EA777FC0035595A /* Items.swift in Sources */,
-				447C27D32EA0BEA60035595A /* CurrencyManager.swift in Sources */,
-				447C27D62EA0C3F30035595A /* MainView.swift in Sources */,
-				447C536D2EA779350035595A /* InventoryManager.swift in Sources */,
-				447C27D12EA0AD180035595A /* StepCounter.swift in Sources */,
-				4425349C2EAB49F4000455F9 /* ItemSelectionSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,7 +500,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27C52EA0ACF20035595A /* WatchTest_Watch_AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,8 +507,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447C27C12EA0ACF10035595A /* WatchTest_Watch_AppUITests.swift in Sources */,
-				447C27C22EA0ACF10035595A /* WatchTest_Watch_AppUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
