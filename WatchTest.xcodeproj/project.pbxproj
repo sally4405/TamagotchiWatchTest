@@ -127,6 +127,45 @@
 		449D94C62EAF2DFF0093B041 /* TamagotchiCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamagotchiCharacter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4412B1B32EB842880082A111 /* Exceptions for "Shared" folder in "WatchTest" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/Tamagotchi.swift,
+			);
+			target = 4405CACB2E73AD2D0036D199 /* WatchTest */;
+		};
+		4412B1B52EB8429D0082A111 /* Exceptions for "Shared" folder in "WatchTest Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/Tamagotchi.swift,
+			);
+			target = 4405CAEE2E73AD2F0036D199 /* WatchTest Watch App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4412B1AF2EB8425A0082A111 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4412B1B32EB842880082A111 /* Exceptions for "Shared" folder in "WatchTest" target */,
+				4412B1B52EB8429D0082A111 /* Exceptions for "Shared" folder in "WatchTest Watch App" target */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		44DAD6F42EB863B3004ED43B /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		44DAD6F72EB86DCD004ED43B /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		4405CAC92E73AD2D0036D199 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -176,6 +215,7 @@
 		4405CAC32E73AD2D0036D199 = {
 			isa = PBXGroup;
 			children = (
+				4412B1AF2EB8425A0082A111 /* Shared */,
 				447C27CB2EA0ACF20035595A /* WatchTest */,
 				447C27B72EA0ACF10035595A /* WatchTestTests */,
 				447C27BB2EA0ACF10035595A /* WatchTestUITests */,
@@ -264,6 +304,8 @@
 		447C27CB2EA0ACF20035595A /* WatchTest */ = {
 			isa = PBXGroup;
 			children = (
+				44DAD6F72EB86DCD004ED43B /* Views */,
+				44DAD6F42EB863B3004ED43B /* Models */,
 				447C27C62EA0ACF20035595A /* Assets.xcassets */,
 				447C27C72EA0ACF20035595A /* ContentView.swift */,
 				447C27C82EA0ACF20035595A /* Info.plist */,
@@ -319,6 +361,10 @@
 			);
 			dependencies = (
 				4405CAF22E73AD2F0036D199 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				44DAD6F42EB863B3004ED43B /* Models */,
+				44DAD6F72EB86DCD004ED43B /* Views */,
 			);
 			name = WatchTest;
 			packageProductDependencies = (
