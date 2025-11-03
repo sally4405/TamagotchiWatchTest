@@ -21,6 +21,20 @@
                ReferencedContainer = "container:WatchTest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4405CAEE2E73AD2F0036D199"
+               BuildableName = "WatchTest Watch App.app"
+               BlueprintName = "WatchTest Watch App"
+               ReferencedContainer = "container:WatchTest.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
