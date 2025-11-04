@@ -76,6 +76,11 @@
 		4412B1B32EB842880082A111 /* Exceptions for "Shared" folder in "WatchTest" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Assets.xcassets,
+				Models/CharacterStats.swift,
+				Models/InventoryManager.swift,
+				Models/Item.swift,
+				Models/Items.swift,
 				Models/Tamagotchi.swift,
 			);
 			target = 4405CACB2E73AD2D0036D199 /* WatchTest */;
@@ -83,6 +88,11 @@
 		4412B1B52EB8429D0082A111 /* Exceptions for "Shared" folder in "WatchTest Watch App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Assets.xcassets,
+				Models/CharacterStats.swift,
+				Models/InventoryManager.swift,
+				Models/Item.swift,
+				Models/Items.swift,
 				Models/Tamagotchi.swift,
 			);
 			target = 4405CAEE2E73AD2F0036D199 /* WatchTest Watch App */;
