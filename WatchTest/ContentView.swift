@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var tamagotchiManager = TamagotchiManager()
-    
     var body: some View {
         TabView {
             TamagotchiListView()
                 .tabItem {
                     Label("다마고치", systemImage: "face.smiling")
                 }
+            
+            InventoryView()
+                .tabItem {
+                    Label("인벤토리", systemImage: "bag")
+                }
         }
-        .environmentObject(tamagotchiManager)
     }
 }
 
