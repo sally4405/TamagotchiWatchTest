@@ -14,7 +14,7 @@ class TamagotchiCharacter: SKNode {
     }
 
     // MARK: - Properties
-    private var imageSetName: String = "Character1"
+    private var imageSetName: String
     private var bodyNode: SKSpriteNode?
     private var headNode: SKSpriteNode?
     private var leftArmNode: SKSpriteNode?
@@ -22,7 +22,7 @@ class TamagotchiCharacter: SKNode {
     private var leftLegNode: SKSpriteNode?
     private var rightLegNode: SKSpriteNode?
 
-    init(imageSetName: String = "Character1") {
+    init(imageSetName: String) {
         self.imageSetName = imageSetName
         super.init()
         setupParts()

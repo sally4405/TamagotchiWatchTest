@@ -11,7 +11,7 @@ import SpriteKit
 struct MainView: View {
     @EnvironmentObject var characterStats: CharacterStats
     
-    @State private var scene = TamagotchiScene()
+    @State private var scene: TamagotchiScene?
     private let charaterViewSize: CGFloat = 100
     @State private var roomNumber: Int = 1
     @State private var isPark: Bool = false
@@ -27,6 +27,21 @@ struct MainView: View {
             }
         }
         .navigationTitle("메인")
+        .onAppear {
+            if characterStats.selectedTamagotchiId != nil {
+                scene = TamagotchiScene(imageSetName: characterStats.imageSetName)
+            }
+        }
+        .onChange(of: characterStats.selectedTamagotchiId) { oldValue, newValue in
+            if newValue != nil {
+                scene = TamagotchiScene(imageSetName: characterStats.imageSetName)
+            } else {
+                scene = nil
+            }
+        }
+        .onChange(of: characterStats.imageSetName) { oldValue, newValue in
+            scene?.updateCharacter(imageSetName: newValue)
+        }
     }
     
     private var noTamagotchiView: some View {
@@ -68,19 +83,21 @@ struct MainView: View {
                 
                 VStack {
                     Spacer()
-                    SpriteView(scene: scene)
-                        .frame(width: charaterViewSize, height: charaterViewSize)
-                        .onTapGesture { location in
-                            if characterStats.currentState == .sleeping {
-                                characterStats.wakeUp()
-                            } else {
-                                scene.handleTap(
-                                    at: location,
-                                    viewWidth: charaterViewSize,
-                                    viewHeight: charaterViewSize
-                                )
+                    if let scene = scene {
+                        SpriteView(scene: scene)
+                            .frame(width: charaterViewSize, height: charaterViewSize)
+                            .onTapGesture { location in
+                                if characterStats.currentState == .sleeping {
+                                    characterStats.wakeUp()
+                                } else {
+                                    scene.handleTap(
+                                        at: location,
+                                        viewWidth: charaterViewSize,
+                                        viewHeight: charaterViewSize
+                                    )
+                                }
                             }
-                        }
+                    }
                 }
                 
                 HStack() {
@@ -117,26 +134,28 @@ struct MainView: View {
         }
         .onChange(of: characterStats.currentState) { oldValue, newValue in
             if newValue == .sleeping {
-                scene.showSleepIndicator()
+                scene?.showSleepIndicator()
             } else {
-                scene.hideSleepIndicator()
+                scene?.hideSleepIndicator()
             }
         }
         .sheet(isPresented: $showFoodSelection) {
             ItemSelectionSheet(category: .food) { item in
-                scene.showItemEffect(itemImageName: item.imageName)
+                scene?.showItemEffect(itemImageName: item.imageName)
                 showStatChanges(for: item.effects)
             }
         }
         .sheet(isPresented: $showToySelection) {
             ItemSelectionSheet(category: .toy) { item in
-                scene.showItemEffect(itemImageName: item.imageName)
+                scene?.showItemEffect(itemImageName: item.imageName)
                 showStatChanges(for: item.effects)
             }
         }
     }
     
     private func showStatChanges(for effects: ItemEffects) {
+        guard let scene = scene else { return }
+        
         if let energe = effects.energy, energe != 0 {
             scene.showStatChange(text: energe > 0 ? "+\(energe)" : "\(energe)", color: .cyan)
         }

@@ -26,11 +26,11 @@ class TamagotchiScene: SKScene {
     private var effectItemNode: SKSpriteNode?
     
     // MARK: - Initialization
-    override init() {
+    init(imageSetName: String) {
         super.init(size: CGSize(width: Layout.sceneSize, height: Layout.sceneSize))
         backgroundColor = .clear
         scaleMode = .aspectFit
-        setup()
+        setup(imageSetName: imageSetName)
         setupNotifications()
     }
     
@@ -43,9 +43,9 @@ class TamagotchiScene: SKScene {
     }
     
     // MARK: - Setup
-    private func setup() {
+    private func setup(imageSetName: String) {
         let container = createContainer()
-        let character = createCharacter()
+        let character = createCharacter(imageSetName: imageSetName)
         container.addChild(character)
         setupEffectNodes()
         scaleContainer(container, characterSize: calculateCharacterSize())
@@ -69,8 +69,8 @@ class TamagotchiScene: SKScene {
         return container
     }
     
-    private func createCharacter() -> SKNode {
-        let character = TamagotchiCharacter()
+    private func createCharacter(imageSetName: String) -> SKNode {
+        let character = TamagotchiCharacter(imageSetName: imageSetName)
         character.position = CGPoint(x: 0, y: Layout.characterOffsetY)
         characterNode = character
         return character
@@ -209,5 +209,10 @@ class TamagotchiScene: SKScene {
     private enum EffectPosition {
         case top
         case item
+    }
+    
+    // MARK: - Public Methods
+    func updateCharacter(imageSetName: String) {
+        characterNode?.loadImageSet(imageSetName)
     }
 }
