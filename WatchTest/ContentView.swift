@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var tamagotchiManager = TamagotchiManager()
+    
     var body: some View {
-        VStack {
-            Text("iOS 앱")
+        TabView {
+            TamagotchiListView()
+                .tabItem {
+                    Label("다마고치", systemImage: "face.smiling")
+                }
         }
+        .environmentObject(tamagotchiManager)
     }
 }
 

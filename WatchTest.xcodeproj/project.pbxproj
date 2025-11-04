@@ -93,6 +93,9 @@
 				Assets.xcassets,
 				ContentView.swift,
 				Models/TamagotchiManager.swift,
+				Views/AddTamagotchiView.swift,
+				Views/TamagotchiCard.swift,
+				Views/TamagotchiListView.swift,
 				WatchTestApp.swift,
 			);
 			target = 4405CACB2E73AD2D0036D199 /* WatchTest */;
