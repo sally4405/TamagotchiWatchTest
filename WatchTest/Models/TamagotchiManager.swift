@@ -14,29 +14,20 @@ class TamagotchiManager: ObservableObject {
     
     private let defaults: UserDefaults
     
-    private enum Keys {
-        static let tamagotchiList = "tamagotch_list"
-        static let selectedId = "selected_tamagotchi_id"
-        static let selectedImageSetName = "selected_tamagotchi_imageSetName"
-        static let selectedEnergy = "selected_tamagotchi_energy"
-        static let selectedFullness = "selected_tamagotchi_fullness"
-        static let selectedHappiness = "selected_tamagotchi_happiness"
-    }
-    
     init() {
-        self.defaults = UserDefaults(suiteName: "group.com.sello.WatchTest") ?? .standard
+        self.defaults = UserDefaults(suiteName: AppGroup.suiteName) ?? .standard
         loadTamagotchis()
         loadSelectedId()
     }
     
     // MARK: - Load
     private func loadTamagotchis() {
-        guard let data = defaults.data(forKey: Keys.tamagotchiList) else { return }
+        guard let data = defaults.data(forKey: AppGroupKeys.tamagotchiList) else { return }
         tamagotchis = (try? JSONDecoder().decode([Tamagotchi].self, from: data)) ?? []
     }
     
     private func loadSelectedId() {
-        guard let idString = defaults.string(forKey: Keys.selectedId),
+        guard let idString = defaults.string(forKey: AppGroupKeys.selectedId),
               let id = UUID(uuidString: idString) else { return }
         selectedTamagotchiId = id
     }
@@ -44,7 +35,7 @@ class TamagotchiManager: ObservableObject {
     // MARK: - Save
     private func saveTamagotchis() {
         guard let data = try? JSONEncoder().encode(tamagotchis) else { return }
-        defaults.set(data, forKey: Keys.tamagotchiList)
+        defaults.set(data, forKey: AppGroupKeys.tamagotchiList)
     }
 
     // MARK: - Public Methods
@@ -76,19 +67,19 @@ class TamagotchiManager: ObservableObject {
     
     // MARK: - Private Methods
     private func saveStatsFromWatchOS(_ id: UUID) {
-        let energy = defaults.integer(forKey: Keys.selectedEnergy)
-        let fullness = defaults.integer(forKey: Keys.selectedFullness)
-        let happiness = defaults.integer(forKey: Keys.selectedHappiness)
+        let energy = defaults.integer(forKey: AppGroupKeys.selectedEnergy)
+        let fullness = defaults.integer(forKey: AppGroupKeys.selectedFullness)
+        let happiness = defaults.integer(forKey: AppGroupKeys.selectedHappiness)
         
         updateStats(id: id, energy: energy, fullness: fullness, happiness: happiness)
     }
     
     private func notifyWatchOS(_ tamagotchi: Tamagotchi) {
-        defaults.set(tamagotchi.id.uuidString, forKey: Keys.selectedId)
-        defaults.set(tamagotchi.imageSetName, forKey: Keys.selectedImageSetName)
-        defaults.set(tamagotchi.energy, forKey: Keys.selectedEnergy)
-        defaults.set(tamagotchi.fullness, forKey: Keys.selectedFullness)
-        defaults.set(tamagotchi.happiness, forKey: Keys.selectedHappiness)
+        defaults.set(tamagotchi.id.uuidString, forKey: AppGroupKeys.selectedId)
+        defaults.set(tamagotchi.imageSetName, forKey:AppGroupKeys.selectedImageSetName)
+        defaults.set(tamagotchi.energy, forKey: AppGroupKeys.selectedEnergy)
+        defaults.set(tamagotchi.fullness, forKey: AppGroupKeys.selectedFullness)
+        defaults.set(tamagotchi.happiness, forKey: AppGroupKeys.selectedHappiness)
         
         NotificationCenter.default.post(name: .tamagotchiSelectionChanged, object: nil)
     }

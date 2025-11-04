@@ -4,7 +4,8 @@
       "Bash(xcodebuild:*)",
       "Bash(git rm:*)",
       "Bash(xargs:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

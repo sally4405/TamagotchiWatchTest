@@ -20,77 +20,101 @@ struct MainView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .center, spacing: 12) {
-                ZStack(alignment: .top) {
-                    Image("\(isPark ? "park1" : "room\(roomNumber)")")
-                        .resizable()
-                        .scaledToFit()
-                        .blur(radius: 1)
-                    
-                    ZStack(alignment: .topLeading) {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.white.opacity(0.5))
-                            .frame(width: 72, height: 42)
-                            .blur(radius: 2)
-                        VStack(spacing: 2) {
-                            statusBar(icon: "bolt.fill", value: characterStats.energy, color: .cyan)
-                            statusBar(icon: "heart.fill", value: characterStats.fullness, color: .pink)
-                            statusBar(icon: "music.note", value: characterStats.happiness, color: .yellow)
-                        }
-                        .padding(4)
-                    }
-                    
-                    VStack {
-                        Spacer()
-                        SpriteView(scene: scene)
-                            .frame(width: charaterViewSize, height: charaterViewSize)
-                            .onTapGesture { location in
-                                if characterStats.currentState == .sleeping {
-                                    characterStats.wakeUp()
-                                } else {
-                                    scene.handleTap(
-                                        at: location,
-                                        viewWidth: charaterViewSize,
-                                        viewHeight: charaterViewSize
-                                    )
-                                }
-                            }
-                    }
-                    
-                    HStack() {
-                        Spacer()
-                        VStack(spacing: 4) {
-                            Spacer()
-                            actionButton(icon: "bed.double.fill", color: .cyan) {
-                                characterStats.startSleeping()
-                            }
-                            actionButton(icon: "fork.knife", color: .pink) {
-                                showFoodSelection = true
-                            }
-                            actionButton(icon: "gamecontroller.fill", color: .yellow) {
-                                showToySelection = true
-                            }
-                        }
-                        .padding(4)
-                        
-                    }
-                }
-                
-                HStack(spacing: 8) {
-                    ForEach(1...3, id: \.self) { number in
-                        backgroundButton(color: roomColor(for: number)) {
-                            isPark = false
-                            roomNumber = number
-                        }
-                    }
-                    Spacer()
-                    backgroundButton(color: .green) {
-                        isPark = true
-                    }
-                }
+            if characterStats.selectedTamagotchiId == nil {
+                noTamagotchiView
+            } else {
+                gameView
             }
         }
         .navigationTitle("메인")
+    }
+    
+    private var noTamagotchiView: some View {
+        VStack(spacing: 20) {
+            Image(systemName: "iphone")
+                .font(.system(size: 60))
+                .foregroundStyle(.gray)
+            
+            Text("다마고치를 생성하세요")
+                .font(.headline)
+            
+            Text("iPhone 앱에서 다마고치를\n먼저 생성해주세요!")
+                .font(.caption)
+                .multilineTextAlignment(.center)
+                .foregroundStyle(.secondary)
+        }
+    }
+    
+    private var gameView: some View {
+        VStack(alignment: .center, spacing: 12) {
+            ZStack(alignment: .top) {
+                Image("\(isPark ? "park1" : "room\(roomNumber)")")
+                    .resizable()
+                    .scaledToFit()
+                    .blur(radius: 1)
+                
+                ZStack(alignment: .topLeading) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white.opacity(0.5))
+                        .frame(width: 72, height: 42)
+                        .blur(radius: 2)
+                    VStack(spacing: 2) {
+                        statusBar(icon: "bolt.fill", value: characterStats.energy, color: .cyan)
+                        statusBar(icon: "heart.fill", value: characterStats.fullness, color: .pink)
+                        statusBar(icon: "music.note", value: characterStats.happiness, color: .yellow)
+                    }
+                    .padding(4)
+                }
+                
+                VStack {
+                    Spacer()
+                    SpriteView(scene: scene)
+                        .frame(width: charaterViewSize, height: charaterViewSize)
+                        .onTapGesture { location in
+                            if characterStats.currentState == .sleeping {
+                                characterStats.wakeUp()
+                            } else {
+                                scene.handleTap(
+                                    at: location,
+                                    viewWidth: charaterViewSize,
+                                    viewHeight: charaterViewSize
+                                )
+                            }
+                        }
+                }
+                
+                HStack() {
+                    Spacer()
+                    VStack(spacing: 4) {
+                        Spacer()
+                        actionButton(icon: "bed.double.fill", color: .cyan) {
+                            characterStats.startSleeping()
+                        }
+                        actionButton(icon: "fork.knife", color: .pink) {
+                            showFoodSelection = true
+                        }
+                        actionButton(icon: "gamecontroller.fill", color: .yellow) {
+                            showToySelection = true
+                        }
+                    }
+                    .padding(4)
+                    
+                }
+            }
+            
+            HStack(spacing: 8) {
+                ForEach(1...3, id: \.self) { number in
+                    backgroundButton(color: roomColor(for: number)) {
+                        isPark = false
+                        roomNumber = number
+                    }
+                }
+                Spacer()
+                backgroundButton(color: .green) {
+                    isPark = true
+                }
+            }
+        }
         .onChange(of: characterStats.currentState) { oldValue, newValue in
             if newValue == .sleeping {
                 scene.showSleepIndicator()

@@ -14,6 +14,7 @@ class TamagotchiCharacter: SKNode {
     }
 
     // MARK: - Properties
+    private var imageSetName: String = "Character1"
     private var bodyNode: SKSpriteNode?
     private var headNode: SKSpriteNode?
     private var leftArmNode: SKSpriteNode?
@@ -21,7 +22,8 @@ class TamagotchiCharacter: SKNode {
     private var leftLegNode: SKSpriteNode?
     private var rightLegNode: SKSpriteNode?
 
-    override init() {
+    init(imageSetName: String = "Character1") {
+        self.imageSetName = imageSetName
         super.init()
         setupParts()
     }
@@ -66,7 +68,7 @@ class TamagotchiCharacter: SKNode {
     }
     
     private func createSprite(name: String) -> SKSpriteNode {
-        let sprite = SKSpriteNode(imageNamed: name)
+        let sprite = SKSpriteNode(imageNamed: "\(imageSetName)/\(name)")
         sprite.name = name
         return sprite
     }
@@ -89,6 +91,12 @@ class TamagotchiCharacter: SKNode {
     }
 
     // MARK: - Public Methods
+    func loadImageSet(_ newImageSetName: String) {
+        imageSetName = newImageSetName
+        removeAllChildren()
+        setupParts()
+    }
+    
     func handleTap(at point: CGPoint) {
         let tappedNodes = nodes(at: point)
         guard let topNode = tappedNodes.first else { return }

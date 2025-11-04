@@ -11,10 +11,6 @@ import Foundation
 class InventoryManager: ObservableObject {
     private let defaults: UserDefaults
     
-    private enum Keys {
-        static let items = "inventory_items"
-    }
-    
     @Published var items: [String: Int] = [:] {
         didSet {
             saveData()
@@ -22,7 +18,7 @@ class InventoryManager: ObservableObject {
     }
     
     init() {
-        self.defaults = UserDefaults(suiteName: "group.com.sello.watchtest") ?? .standard
+        self.defaults = UserDefaults(suiteName: AppGroup.suiteName) ?? .standard
         loadData()
     }
     
@@ -53,12 +49,12 @@ class InventoryManager: ObservableObject {
     
     private func saveData() {
         if let encoded = try? JSONEncoder().encode(items) {
-            defaults.set(encoded, forKey: Keys.items)
+            defaults.set(encoded, forKey: AppGroupKeys.inventoryItems)
         }
     }
     
     private func loadData() {
-        if let data = defaults.data(forKey: Keys.items),
+        if let data = defaults.data(forKey: AppGroupKeys.inventoryItems),
            let decoded = try? JSONDecoder().decode([String: Int].self, from: data) {
             items = decoded
         }

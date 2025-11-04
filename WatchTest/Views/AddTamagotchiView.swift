@@ -30,7 +30,7 @@ struct AddTamagotchiView: View {
                                 Image(imageSet)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 40)
+                                    .frame(height: 40)
                                 Text(imageSet)
                             }
                             .tag(imageSet)

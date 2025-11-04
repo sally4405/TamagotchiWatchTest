@@ -17,17 +17,13 @@ class CharacterStats: ObservableObject {
     private let defaults: UserDefaults
     private var stateTimer: Timer?
     
-    private enum Keys {
-        static let energy = "character_energy"
-        static let fullness = "character_fullness"
-        static let happiness = "character_happiness"
-        static let state = "character_state"
-    }
-    
     private enum Limits {
         static let min = 0
         static let max = 100
     }
+    
+    @Published var selectedTamagotchiId: UUID?
+    @Published var imageSetName: String = "Character1"
     
     @Published var energy: Int {
         didSet { saveData() }
@@ -41,38 +37,29 @@ class CharacterStats: ObservableObject {
         didSet { saveData() }
     }
     
-    @Published var currentState: CharacterState {
-        didSet { saveData() }
-    }
+    @Published var currentState: CharacterState = .idle
     
     init() {
-        self.defaults = UserDefaults(suiteName: "group.com.sello.watchtest") ?? .standard
+        self.defaults = UserDefaults(suiteName: AppGroup.suiteName) ?? .standard
         
-        if defaults.object(forKey: Keys.energy) == nil {
-            //            self.energy = Limits.max
-            //            self.fullness = Limits.max
-            //            self.happiness = Limits.max
-            self.energy = 20
-            self.fullness = 30
-            self.happiness = 0
-            self.currentState = .idle
-            saveData()
+        if let idString = defaults.string(forKey: AppGroupKeys.selectedId),
+           let  id = UUID(uuidString: idString) {
+            selectedTamagotchiId = id
+            imageSetName = defaults.string(forKey: AppGroupKeys.selectedImageSetName) ?? "Character1"
+            energy = defaults.integer(forKey: AppGroupKeys.selectedEnergy)
+            fullness = defaults.integer(forKey: AppGroupKeys.selectedFullness)
+            happiness = defaults.integer(forKey: AppGroupKeys.selectedHappiness)
         } else {
-            self.energy = defaults.integer(forKey: Keys.energy)
-            self.fullness = defaults.integer(forKey: Keys.fullness)
-            self.happiness = defaults.integer(forKey: Keys.happiness)
-            
-            if let stateString = defaults.string(forKey: Keys.state),
-               let state = CharacterState(rawValue: stateString) {
-                self.currentState = state
-            } else {
-                self.currentState = .idle
-            }
+            selectedTamagotchiId = nil
+//            energy = Limits.max
+//            fullness = Limits.max
+//            happiness = Limits.max
+            energy = 20
+            fullness = 30
+            happiness = 0
         }
         
-        if currentState == .sleeping {
-            startTimer()
-        }
+        currentState = .idle
     }
     
     func applyItem(effects: ItemEffects) {
@@ -127,10 +114,9 @@ class CharacterStats: ObservableObject {
     }
     
     private func saveData() {
-        defaults.set(energy, forKey: Keys.energy)
-        defaults.set(fullness, forKey: Keys.fullness)
-        defaults.set(happiness, forKey: Keys.happiness)
-        defaults.set(currentState.rawValue, forKey: Keys.state)
+        defaults.set(energy, forKey: AppGroupKeys.selectedEnergy)
+        defaults.set(fullness, forKey: AppGroupKeys.selectedFullness)
+        defaults.set(happiness, forKey: AppGroupKeys.selectedHappiness)
     }
     
     private func clamp(_ value: Int) -> Int {

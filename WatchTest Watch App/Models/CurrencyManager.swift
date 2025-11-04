@@ -16,28 +16,22 @@ class CurrencyManager: ObservableObject {
     @Published var lastProcessedDate: Date? = nil
     
     private let stepsPerCoin: Int = 100 // 100걸음 = 1코인
-    
-    private enum Keys {
-        static let coins = "userCoins"
-        static let lastSteps = "lastProcessedSteps"
-        static let lastDate = "lastProcessedDate"
-    }
-    
+        
     init() {
-        self.defaults = UserDefaults(suiteName: "group.com.sello.watchtest") ?? .standard
+        self.defaults = UserDefaults(suiteName: AppGroup.suiteName) ?? .standard
         loadData()
     }
     
     private func loadData() {
-        currentCoins = defaults.integer(forKey: Keys.coins)
-        lastProcessedSteps = defaults.integer(forKey: Keys.lastSteps)
-        lastProcessedDate = defaults.object(forKey: Keys.lastDate) as? Date
+        currentCoins = defaults.integer(forKey: AppGroupKeys.coins)
+        lastProcessedSteps = defaults.integer(forKey: AppGroupKeys.lastSteps)
+        lastProcessedDate = defaults.object(forKey: AppGroupKeys.lastDate) as? Date
     }
     
     private func saveData() {
-        defaults.set(currentCoins, forKey: Keys.coins)
-        defaults.set(lastProcessedSteps, forKey: Keys.lastSteps)
-        defaults.set(lastProcessedDate, forKey: Keys.lastDate)
+        defaults.set(currentCoins, forKey: AppGroupKeys.coins)
+        defaults.set(lastProcessedSteps, forKey: AppGroupKeys.lastSteps)
+        defaults.set(lastProcessedDate, forKey: AppGroupKeys.lastDate)
     }
     
     func processSteps(_ currentSteps: Int) {
