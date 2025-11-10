@@ -35,9 +35,9 @@ struct TamagotchiCard: View {
 
 #Preview {
     HStack {
-        TamagotchiCard(tamagotchi: Tamagotchi(name: "피카츄", imageSetName: "character1"), isSelected: false, isPreviewSelected: false)
-        TamagotchiCard(tamagotchi: Tamagotchi(name: "꼬부기", imageSetName: "character2"), isSelected: true, isPreviewSelected: false)
-        TamagotchiCard(tamagotchi: Tamagotchi(name: "파이리", imageSetName: "character1"), isSelected: false, isPreviewSelected: true)
+        TamagotchiCard(tamagotchi: Tamagotchi(name: "피카츄", imageSetName: "Character1"), isSelected: false, isPreviewSelected: false)
+        TamagotchiCard(tamagotchi: Tamagotchi(name: "꼬부기", imageSetName: "Character2"), isSelected: true, isPreviewSelected: false)
+        TamagotchiCard(tamagotchi: Tamagotchi(name: "파이리", imageSetName: "Character1"), isSelected: false, isPreviewSelected: true)
     }
     .padding()
 }

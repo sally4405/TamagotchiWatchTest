@@ -42,6 +42,7 @@ class CharacterStats: ObservableObject {
     init() {
         self.defaults = UserDefaults(suiteName: AppGroup.suiteName) ?? .standard
         
+        // WatchConnectivity로 교체 예정
         if let idString = defaults.string(forKey: AppGroupKeys.selectedId),
            let  id = UUID(uuidString: idString) {
             selectedTamagotchiId = id
@@ -51,12 +52,9 @@ class CharacterStats: ObservableObject {
             happiness = defaults.integer(forKey: AppGroupKeys.selectedHappiness)
         } else {
             selectedTamagotchiId = nil
-//            energy = Limits.max
-//            fullness = Limits.max
-//            happiness = Limits.max
-            energy = 20
-            fullness = 30
-            happiness = 0
+            energy = Limits.max
+            fullness = Limits.max
+            happiness = Limits.max
         }
         
         currentState = .idle

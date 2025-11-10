@@ -2,17 +2,39 @@
 
 ## 전체 구조
 
-watchOS 앱 중심의 다마고치 게임. HealthKit으로 걸음수를 수집해 재화를 획득하고, SpriteKit 기반 캐릭터와 상호작용하는 구조.
+듀얼 플랫폼 다마고치 게임. iOS에서 다마고치를 관리하고, watchOS에서 실제 게임플레이를 진행하는 구조. WatchConnectivity로 데이터 동기화.
 
 ```
+Shared/
+├── Models/
+│   ├── Tamagotchi.swift            # 다마고치 데이터 모델
+│   ├── CharacterStats.swift        # 캐릭터 상태 관리
+│   ├── Item.swift                  # 아이템 데이터 모델
+│   ├── Items.swift                 # 아이템 목록
+│   └── InventoryManager.swift      # 인벤토리 관리
+├── Assets.xcassets/                # 공유 리소스 (아이템 이미지)
+└── Constants.swift                 # 공유 상수 (UserDefaults 키, App Group)
+
+WatchTest/ (iOS)
+├── Models/
+│   └── TamagotchiManager.swift     # 다마고치 목록 관리
+├── Services/
+│   └── WatchConnectivityManager.swift  # iOS-Watch 통신 관리
+├── Views/
+│   ├── ContentView.swift           # TabView (다마고치 목록, 인벤토리)
+│   ├── TamagotchiListView.swift   # 다마고치 목록 (3칸 그리드)
+│   ├── TamagotchiCard.swift       # 다마고치 카드 UI
+│   ├── AddTamagotchiView.swift    # 다마고치 추가 시트
+│   └── InventoryView.swift         # 인벤토리 (공유)
+├── Assets.xcassets/                # iOS 전용 리소스 (캐릭터 전체 이미지)
+└── WatchTestApp.swift              # 앱 진입점
+
 WatchTest Watch App/
 ├── Models/
 │   ├── StepCounter.swift           # HealthKit 걸음수 관리
-│   ├── CurrencyManager.swift       # 재화 시스템 (걸음수→코인)
-│   ├── CharacterStats.swift        # 캐릭터 상태 (energy, fullness, happiness)
-│   ├── InventoryManager.swift      # 인벤토리 관리
-│   ├── Item.swift                  # 아이템 데이터 모델
-│   └── Items.swift                 # 아이템 목록
+│   └── CurrencyManager.swift       # 재화 시스템 (걸음수→코인)
+├── Services/
+│   └── WatchConnectivityManager.swift  # Watch-iOS 통신 관리
 ├── GameScene/
 │   ├── TamagotchiScene.swift       # SpriteKit 씬
 │   └── TamagotchiCharacter.swift   # 캐릭터 노드 (파츠 조합)
@@ -21,13 +43,12 @@ WatchTest Watch App/
 │   ├── MainView.swift              # 메인 게임 화면
 │   ├── ExchangeView.swift          # 코인 환전
 │   ├── ShopView.swift              # 상점
-│   ├── InventoryView.swift         # 인벤토리
+│   ├── InventoryView.swift         # 인벤토리 (공유)
 │   ├── ItemSelectionSheet.swift    # 아이템 선택 시트
 │   └── DebugView.swift             # 디버깅 도구
+├── Assets.xcassets/                # watchOS 전용 리소스 (캐릭터 파츠, 배경, 이펙트)
 └── WatchTestApp.swift              # 앱 진입점
 ```
-
-iOS 앱은 아직 미구현 (ContentView만 존재).
 
 ## 구현 순서
 
@@ -126,3 +147,42 @@ iOS 앱은 아직 미구현 (ContentView만 존재).
 - MainView에서 scene.showItemEffect() 호출로 아이템 이미지 표시
 - showStatChanges() 함수로 스탯 변화량 (+/-) 표시
 - 아이템 이펙트 → 하트 이펙트 순차 표시 (completion 콜백)
+
+### 14. Shared 폴더 구조 및 공통 상수 관리
+- Shared/Models 폴더 생성 (iOS, watchOS 공유)
+- Tamagotchi.swift: id, name, imageSetName, stats 속성
+- CharacterStats, Item, Items, InventoryManager를 Shared로 이동
+- Constants.swift 생성: AppGroupKeys, AppGroup enum으로 UserDefaults 키 중앙 관리
+- Shared/Assets.xcassets 생성: 아이템 이미지 공유
+
+### 15. iOS 앱 구현 - 다마고치 관리
+- TamagotchiManager.swift: 다마고치 목록 관리, 선택된 다마고치 정보 watchOS에 전달
+- ContentView: TabView (다마고치 목록, 인벤토리)
+- TamagotchiListView: 3칸 LazyVGrid, 선택/확정 UI, 플로팅 선택 버튼
+- TamagotchiCard: 이미지, 이름, 선택 상태 (테두리/배경색)
+- AddTamagotchiView: 이름 입력, 이미지셋 선택 (Character1, Character2)
+- InventoryView: 아이템 목록, 뱃지로 개수 표시, effects 정보
+
+### 16. iOS ↔ watchOS 동기화 (WatchConnectivity)
+- **iOS WatchConnectivityManager**: WCSession 관리, 선택된 다마고치를 Watch로 전송
+  - sendTamagotchiToWatch(): isReachable 체크 후 sendMessage 또는 transferUserInfo
+  - session(_:didReceiveMessage:): Watch에서 업데이트된 stats 수신
+  - TamagotchiManager.updateStats() 호출하여 iOS 목록 업데이트
+- **watchOS WatchConnectivityManager**: WCSession 관리, iOS에서 다마고치 정보 수신
+  - didReceiveMessage, didReceiveUserInfo, didReceiveApplicationContext 모두 구현
+  - sendStatsToiPhone(): stats 변경 시 iOS로 전송 (sendMessage 사용)
+  - CharacterStats.loadTamagotchi() 호출하여 캐릭터 로드
+- **기존 UserDefaults 통신 코드 제거**:
+  - TamagotchiManager: saveStatsFromWatchOS(), notifyWatchOS() 제거
+  - CharacterStats: reloadFromUserDefaults() 제거, defaults.synchronize() 제거
+  - MainView: reloadFromUserDefaults() 호출 제거
+- **App Groups UserDefaults는 각 앱 내부 영속성만 사용** (플랫폼 간 통신 X)
+
+### 17. watchOS 다마고치 동적 교체
+- TamagotchiCharacter: imageSetName 파라미터로 동적 이미지 로딩
+- createSprite에서 "\(imageSetName)/\(name)" 형식으로 이미지 로드
+- loadImageSet() 함수로 캐릭터 파츠 교체
+- TamagotchiScene: imageSetName을 받아서 캐릭터 생성
+- MainView: scene을 Optional로 변경, 다마고치 있을 때만 생성
+- selectedTamagotchiId가 nil이면 "다마고치 생성하세요" 안내 화면 표시
+- imageSetName 변경 감지 시 scene.updateCharacter() 호출로 캐릭터 교체

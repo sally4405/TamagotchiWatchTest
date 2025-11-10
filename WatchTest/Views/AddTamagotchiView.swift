@@ -12,9 +12,9 @@ struct AddTamagotchiView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var name: String = ""
-    @State private var selectedImageSet = "character1"
+    @State private var selectedImageSet = "Character1"
     
-    let availableImageSets: [String] = ["character1", "character2"]
+    let availableImageSets: [String] = ["Character1", "Character2"]
     
     var body: some View {
         NavigationStack {

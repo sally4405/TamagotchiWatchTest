@@ -46,15 +46,16 @@ class TamagotchiManager: ObservableObject {
     }
     
     func selectTamagochi(_ id: UUID) {
-        if let previousId = selectedTamagotchiId {
-            saveStatsFromWatchOS(previousId)
-        }
+//        if let previousId = selectedTamagotchiId {
+//            saveStatsFromWatchOS(previousId)
+//        }
         
         selectedTamagotchiId = id
         
-        if let selectedTamagotchi = tamagotchis.first(where: { $0.id == id }) {
-            notifyWatchOS(selectedTamagotchi)
-        }
+        // WatchConnectivity 연결?
+//        if let selectedTamagotchi = tamagotchis.first(where: { $0.id == id }) {
+//            notifyWatchOS(selectedTamagotchi)
+//        }
     }
     
     func updateStats(id: UUID, energy: Int, fullness: Int, happiness: Int) {
@@ -64,28 +65,4 @@ class TamagotchiManager: ObservableObject {
         tamagotchis[index].happiness = happiness
         saveTamagotchis()
     }
-    
-    // MARK: - Private Methods
-    private func saveStatsFromWatchOS(_ id: UUID) {
-        let energy = defaults.integer(forKey: AppGroupKeys.selectedEnergy)
-        let fullness = defaults.integer(forKey: AppGroupKeys.selectedFullness)
-        let happiness = defaults.integer(forKey: AppGroupKeys.selectedHappiness)
-        
-        updateStats(id: id, energy: energy, fullness: fullness, happiness: happiness)
-    }
-    
-    private func notifyWatchOS(_ tamagotchi: Tamagotchi) {
-        defaults.set(tamagotchi.id.uuidString, forKey: AppGroupKeys.selectedId)
-        defaults.set(tamagotchi.imageSetName, forKey:AppGroupKeys.selectedImageSetName)
-        defaults.set(tamagotchi.energy, forKey: AppGroupKeys.selectedEnergy)
-        defaults.set(tamagotchi.fullness, forKey: AppGroupKeys.selectedFullness)
-        defaults.set(tamagotchi.happiness, forKey: AppGroupKeys.selectedHappiness)
-        
-        NotificationCenter.default.post(name: .tamagotchiSelectionChanged, object: nil)
-    }
-}
-
-// MARK: - Notification Names
- extension Notification.Name {
-    static let tamagotchiSelectionChanged = Notification.Name("TamagotchiSelectionChanged")
 }
