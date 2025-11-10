@@ -10,6 +10,7 @@ import SpriteKit
 
 struct MainView: View {
     @EnvironmentObject var characterStats: CharacterStats
+    @Environment(\.scenePhase) var scenePhase
     
     @State private var scene: TamagotchiScene?
     private let charaterViewSize: CGFloat = 100
@@ -27,6 +28,12 @@ struct MainView: View {
             }
         }
         .navigationTitle("메인")
+        .environment(\.scenePhase, scenePhase)
+        .onChange(of: scenePhase) { oldValue, newValue in
+            if newValue == .active {
+//                characterStats.reloadFromUserDefaults()
+            }
+        }
         .onAppear {
             if characterStats.selectedTamagotchiId != nil {
                 scene = TamagotchiScene(imageSetName: characterStats.imageSetName)
@@ -57,6 +64,16 @@ struct MainView: View {
                 .font(.caption)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
+            
+            Button {
+//                characterStats.reloadFromUserDefaults()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.clockwise")
+                    Text("새로고침")
+                }
+            }
+            .buttonStyle(.bordered)
         }
     }
     
