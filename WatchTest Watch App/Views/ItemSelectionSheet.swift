@@ -12,7 +12,6 @@ struct ItemSelectionSheet: View {
     let onItemSelected: (Item) -> Void
     
     @EnvironmentObject var inventoryManager: InventoryManager
-    @EnvironmentObject var characterStats: CharacterStats
     @Environment(\.dismiss) var dismiss
     
     var ownedItems: [Item] {
@@ -70,9 +69,8 @@ struct ItemSelectionSheet: View {
     private func useItem(_ item: Item) {
         guard inventoryManager.hasItem(item.id) else { return }
         inventoryManager.useItem(item.id)
-        characterStats.applyItem(effects: item.effects)
         dismiss()
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             onItemSelected(item)
         }
@@ -82,5 +80,4 @@ struct ItemSelectionSheet: View {
 #Preview {
     ItemSelectionSheet(category: .food, onItemSelected: { _ in })
         .environmentObject(InventoryManager())
-        .environmentObject(CharacterStats())
 }

@@ -38,10 +38,11 @@ class WatchConnectivityManager: NSObject, ObservableObject {
         let message: [String: Any] = [
             "type": "selectTamagotchi",
             "id": tamagotchi.id.uuidString,
+            "name": tamagotchi.name,
             "imageSetName": tamagotchi.imageSetName,
-            "energy": tamagotchi.energy,
-            "fullness": tamagotchi.fullness,
-            "happiness": tamagotchi.happiness
+            "energy": tamagotchi.stats.energy,
+            "fullness": tamagotchi.stats.fullness,
+            "happiness": tamagotchi.stats.happiness
         ]
         
         if session.isReachable {
@@ -95,11 +96,12 @@ extension WatchConnectivityManager: WCSessionDelegate {
                 return
             }
             
-            print("📱 iOS: Received stats update from Watch (message)")
+            print("📱 iOS: Received stats update from Watch")
             print("  - ID: \(idString)")
             print("  - Energy: \(energy)")
-            
-            tamagotchiManager?.updateStats(id: id, energy: energy, fullness: fullness, happiness: happiness)
+
+            let stats = TamagotchiStats(energy: energy, fullness: fullness, happiness: happiness)
+            tamagotchiManager?.updateStats(id: id, stats: stats)
         }
     }
     
@@ -119,8 +121,9 @@ extension WatchConnectivityManager: WCSessionDelegate {
             print("📱 iOS: Received stats update from Watch (userInfo)")
             print("  - ID: \(idString)")
             print("  - Energy: \(energy)")
-            
-            tamagotchiManager?.updateStats(id: id, energy: energy, fullness: fullness, happiness: happiness)
+
+            let stats = TamagotchiStats(energy: energy, fullness: fullness, happiness: happiness)
+            tamagotchiManager?.updateStats(id: id, stats: stats)
         }
 
     }

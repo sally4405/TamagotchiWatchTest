@@ -7,8 +7,7 @@
 ```
 Shared/
 ├── Models/
-│   ├── Tamagotchi.swift            # 다마고치 데이터 모델
-│   ├── CharacterStats.swift        # 캐릭터 상태 관리
+│   ├── Tamagotchi.swift            # 다마고치 데이터 모델 (TamagotchiStats, ItemEffects 포함)
 │   ├── Item.swift                  # 아이템 데이터 모델
 │   ├── Items.swift                 # 아이템 목록
 │   └── InventoryManager.swift      # 인벤토리 관리
@@ -31,6 +30,7 @@ WatchTest/ (iOS)
 
 WatchTest Watch App/
 ├── Models/
+│   ├── TamagotchiManager.swift     # 다마고치 상태 및 액션 관리 (수면, 아이템 적용)
 │   ├── StepCounter.swift           # HealthKit 걸음수 관리
 │   └── CurrencyManager.swift       # 재화 시스템 (걸음수→코인)
 ├── Services/
@@ -98,20 +98,23 @@ WatchTest Watch App/
 - SKAction.sequence로 애니메이션 체이닝
 - NotificationCenter로 body→scene 이벤트 전달 (전구 이펙트)
 
-### 7. 캐릭터 상태 시스템
-- CharacterStats.swift 생성, ObservableObject로 상태 관리
-- @Published 변수: energy, fullness, happiness (0-100)
-- App Groups UserDefaults로 데이터 영속화
-- clamp() 함수로 값 범위 제한
-- CharacterState enum (idle, sleeping)
-- applyItem() 함수로 아이템 효과 적용 (ItemEffects 구조체)
+### 7. 다마고치 상태 시스템 및 모델 구조
+- Tamagotchi.swift: id, name, imageSetName, stats 속성
+- TamagotchiStats 구조체: energy, fullness, happiness (0-100)
+  - apply() 메서드로 ItemEffects 적용 및 자동 clamp
+  - limits static 프로퍼티로 범위 관리 (0...100)
+- ItemEffects 구조체: 아이템 효과 정의 (Tamagotchi.swift에 포함)
+- TamagotchiManager (watchOS): ObservableObject로 상태 및 액션 관리
+  - currentTamagotchi, currentState (idle, sleeping)
+  - applyItem(), startSleeping(), wakeUp() 메서드
+  - UserDefaults에 Tamagotchi 객체 전체 저장 (JSON)
 
 ### 8. 수면 시스템
-- startSleeping() 함수로 수면 상태 전환
-- Timer로 1초마다 상태 변화 적용 (energy +1, fullness -1)
+- TamagotchiManager.startSleeping() 함수로 수면 상태 전환
+- Timer로 1초마다 ItemEffects(energy: 1, fullness: -1) 적용
 - energy가 max 또는 fullness가 min이면 자동으로 깨어남 (wakeUp)
 - TamagotchiScene에 showSleepIndicator() 함수로 수면 이펙트 표시
-- MainView에서 onChange로 상태 변화 감지 및 이펙트 표시/숨김
+- MainView에서 onChange로 currentState 변화 감지 및 이펙트 표시/숨김
 
 ### 9. 이펙트 시스템
 - TamagotchiScene에 effectTopNode, effectItemNode 추가 (캐릭터 위, 아이템 위치)
@@ -124,8 +127,8 @@ WatchTest Watch App/
 - Item.swift: id, name, imageName, price, category, effects
 - ItemCategory enum: food, toy
 - Items.swift: 아이템 목록 정의 (음식, 장난감 등)
-- InventoryManager.swift: 아이템 구매/사용 관리, App Groups UserDefaults 저장
-- ItemEffects 구조체로 아이템 효과 정의 (energy, fullness, happiness)
+- InventoryManager.swift: 아이템 구매/사용 관리, UserDefaults 저장
+- ItemEffects 구조체: Tamagotchi.swift에 정의 (energy, fullness, happiness 선택적 파라미터)
 
 ### 11. 상점 및 인벤토리 UI
 - ShopView: 아이템 목록을 Grid로 표시, 가격 표시, 구매 버튼
@@ -144,16 +147,19 @@ WatchTest Watch App/
 
 ### 13. 아이템 사용 연동
 - ItemSelectionSheet에서 아이템 선택 시 completion 콜백
-- MainView에서 scene.showItemEffect() 호출로 아이템 이미지 표시
+- MainView에서 tamagotchiManager.applyItem() 호출로 스탯 적용
+- scene.showItemEffect() 호출로 아이템 이미지 표시
 - showStatChanges() 함수로 스탯 변화량 (+/-) 표시
-- 아이템 이펙트 → 하트 이펙트 순차 표시 (completion 콜백)
 
 ### 14. Shared 폴더 구조 및 공통 상수 관리
 - Shared/Models 폴더 생성 (iOS, watchOS 공유)
-- Tamagotchi.swift: id, name, imageSetName, stats 속성
-- CharacterStats, Item, Items, InventoryManager를 Shared로 이동
-- Constants.swift 생성: AppGroupKeys, AppGroup enum으로 UserDefaults 키 중앙 관리
-- Shared/Assets.xcassets 생성: 아이템 이미지 공유
+- Tamagotchi.swift: id, name, imageSetName, stats (TamagotchiStats)
+  - TamagotchiStats: energy, fullness, happiness + apply() 메서드
+  - ItemEffects: 아이템 효과 구조체
+- Item, Items, InventoryManager를 Shared로 이동
+- Constants.swift: AppGroupKeys, AppGroup enum으로 UserDefaults 키 중앙 관리
+  - selectedTamagotchi (watchOS용), selectedId (iOS용), tamagotchiList, inventoryItems, coins 등
+- Shared/Assets.xcassets: 아이템 이미지 공유
 
 ### 15. iOS 앱 구현 - 다마고치 관리
 - TamagotchiManager.swift: 다마고치 목록 관리, 선택된 다마고치 정보 watchOS에 전달
@@ -165,18 +171,18 @@ WatchTest Watch App/
 
 ### 16. iOS ↔ watchOS 동기화 (WatchConnectivity)
 - **iOS WatchConnectivityManager**: WCSession 관리, 선택된 다마고치를 Watch로 전송
-  - sendTamagotchiToWatch(): isReachable 체크 후 sendMessage 또는 transferUserInfo
-  - session(_:didReceiveMessage:): Watch에서 업데이트된 stats 수신
-  - TamagotchiManager.updateStats() 호출하여 iOS 목록 업데이트
+  - sendTamagotchiToWatch(): Tamagotchi 객체 → Dictionary, isReachable 체크 후 sendMessage 또는 updateApplicationContext
+  - session(_:didReceiveMessage:): Watch에서 stats 수신 → TamagotchiStats 생성 → updateStats(id, stats)
+  - didReceiveUserInfo: transferUserInfo로 받은 stats 처리
 - **watchOS WatchConnectivityManager**: WCSession 관리, iOS에서 다마고치 정보 수신
-  - didReceiveMessage, didReceiveUserInfo, didReceiveApplicationContext 모두 구현
-  - sendStatsToiPhone(): stats 변경 시 iOS로 전송 (sendMessage 사용)
-  - CharacterStats.loadTamagotchi() 호출하여 캐릭터 로드
-- **기존 UserDefaults 통신 코드 제거**:
-  - TamagotchiManager: saveStatsFromWatchOS(), notifyWatchOS() 제거
-  - CharacterStats: reloadFromUserDefaults() 제거, defaults.synchronize() 제거
-  - MainView: reloadFromUserDefaults() 호출 제거
-- **App Groups UserDefaults는 각 앱 내부 영속성만 사용** (플랫폼 간 통신 X)
+  - didReceiveMessage, didReceiveUserInfo, didReceiveApplicationContext 구현
+  - Dictionary 파싱 → TamagotchiStats 생성 → Tamagotchi 객체 생성 → loadTamagotchi()
+  - sendStatsToiPhone(): 다마고치 전환 시에만 호출 (실시간 전송 X)
+  - isReachable = false일 때 transferUserInfo로 백업 전송
+- **데이터 저장 방식**:
+  - iOS: tamagotchiList (배열), selectedId (ID만)
+  - watchOS: selectedTamagotchi (Tamagotchi 객체 전체, JSON 인코딩)
+- **App Groups UserDefaults는 각 앱 내부 영속성만 사용** (플랫폼 간 통신 불가)
 
 ### 17. watchOS 다마고치 동적 교체
 - TamagotchiCharacter: imageSetName 파라미터로 동적 이미지 로딩
@@ -184,5 +190,6 @@ WatchTest Watch App/
 - loadImageSet() 함수로 캐릭터 파츠 교체
 - TamagotchiScene: imageSetName을 받아서 캐릭터 생성
 - MainView: scene을 Optional로 변경, 다마고치 있을 때만 생성
-- selectedTamagotchiId가 nil이면 "다마고치 생성하세요" 안내 화면 표시
-- imageSetName 변경 감지 시 scene.updateCharacter() 호출로 캐릭터 교체
+- currentTamagotchi가 nil이면 "다마고치 생성하세요" 안내 화면 표시
+- onChange로 currentTamagotchi?.id 및 imageSetName 변경 감지하여 씬 업데이트
+- scenePhase로 앱 활성화 시 씬 복원

@@ -8,19 +8,18 @@
 import Foundation
 
 enum AppGroupKeys {
-    // Tamagotchi List
+    // Tamagotchi List (iOS)
     static let tamagotchiList = "tamagotchi_list"
-    
-    // Selected Tamagotchi
+
+    // Selected Tamagotchi ID (iOS)
     static let selectedId = "selected_tamagotchi_id"
-    static let selectedImageSetName = "selected_tamagotchi_imageSetName"
-    static let selectedEnergy = "selected_tamagotchi_energy"
-    static let selectedFullness = "selected_tamagotchi_fullness"
-    static let selectedHappiness = "selected_tamagotchi_happiness"
+
+    // Selected Tamagotchi Object (watchOS)
+    static let selectedTamagotchi = "selected_tamagotchi"
 
     // Inventory
     static let inventoryItems = "inventory_items"
-    
+
     // Currency
     static let coins = "user_coins"
     static let lastSteps = "last_processed_steps"

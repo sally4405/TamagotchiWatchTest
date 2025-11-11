@@ -48,7 +48,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(CharacterStats())
+        .environmentObject(TamagotchiManager())
         .environmentObject(StepCounter())
         .environmentObject(CurrencyManager())
         .environmentObject(InventoryManager())

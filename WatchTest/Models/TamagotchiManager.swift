@@ -54,11 +54,9 @@ class TamagotchiManager: ObservableObject {
         }
     }
     
-    func updateStats(id: UUID, energy: Int, fullness: Int, happiness: Int) {
+    func updateStats(id: UUID, stats: TamagotchiStats) {
         guard let index = tamagotchis.firstIndex(where: { $0.id == id }) else { return }
-        tamagotchis[index].energy = energy
-        tamagotchis[index].fullness = fullness
-        tamagotchis[index].happiness = happiness
+        tamagotchis[index].stats = stats
         saveTamagotchis()
     }
 }

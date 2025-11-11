@@ -9,21 +9,20 @@ import SwiftUI
 
 @main
 struct WatchTest_Watch_AppApp: App {
-    @StateObject private var characterStats = CharacterStats()
+    @StateObject private var tamagotchiManager = TamagotchiManager()
     @StateObject private var stepCounter = StepCounter()
     @StateObject private var currencyManager = CurrencyManager()
     @StateObject private var inventoryManager = InventoryManager()
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(characterStats)
+                .environmentObject(tamagotchiManager)
                 .environmentObject(stepCounter)
                 .environmentObject(currencyManager)
                 .environmentObject(inventoryManager)
                 .onAppear {
-                    WatchConnectivityManager.shared.characterStats = characterStats
-                    characterStats.delegate = WatchConnectivityManager.shared
+                    WatchConnectivityManager.shared.tamagotchiManager = tamagotchiManager
                 }
         }
     }

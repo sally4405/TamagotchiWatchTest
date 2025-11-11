@@ -78,7 +78,6 @@
 			membershipExceptions = (
 				Assets.xcassets,
 				Constants.swift,
-				Models/CharacterStats.swift,
 				Models/InventoryManager.swift,
 				Models/Item.swift,
 				Models/Items.swift,
@@ -91,7 +90,6 @@
 			membershipExceptions = (
 				Assets.xcassets,
 				Constants.swift,
-				Models/CharacterStats.swift,
 				Models/InventoryManager.swift,
 				Models/Item.swift,
 				Models/Items.swift,
