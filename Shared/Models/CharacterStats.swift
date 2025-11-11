@@ -7,6 +7,11 @@
 
 import Foundation
 
+@MainActor
+protocol CharacterStatsDelegate: AnyObject {
+    func characterStatsDidUpdate(id: UUID, energy: Int, fullness: Int, happiness: Int)
+}
+
 enum CharacterState: String, Codable {
     case idle
     case sleeping
@@ -14,6 +19,7 @@ enum CharacterState: String, Codable {
 
 @MainActor
 class CharacterStats: ObservableObject {
+    weak var delegate: CharacterStatsDelegate?
     private let defaults: UserDefaults
     private var stateTimer: Timer?
     
@@ -41,10 +47,9 @@ class CharacterStats: ObservableObject {
     
     init() {
         self.defaults = UserDefaults(suiteName: AppGroup.suiteName) ?? .standard
-        
-        // WatchConnectivity로 교체 예정
+
         if let idString = defaults.string(forKey: AppGroupKeys.selectedId),
-           let  id = UUID(uuidString: idString) {
+           let id = UUID(uuidString: idString) {
             selectedTamagotchiId = id
             imageSetName = defaults.string(forKey: AppGroupKeys.selectedImageSetName) ?? "Character1"
             energy = defaults.integer(forKey: AppGroupKeys.selectedEnergy)
@@ -81,6 +86,38 @@ class CharacterStats: ObservableObject {
     func wakeUp() {
         currentState = .idle
         stopTimer()
+    }
+    
+    // WatchConnectivity로 받은 다마고치 로드
+    func loadTamagotchi(id: UUID, imageSetName: String, energy: Int, fullness: Int, happiness: Int) {
+        print("⌚️ CharacterStats: Loading tamagotchi")
+        print("  - ID: \(id.uuidString)")
+        print("  - ImageSet: \(imageSetName)")
+        
+        // 기존 다마고치가 있고, 다른 다마고치로 전환하는 경우
+        if let currentId = selectedTamagotchiId, currentId != id {
+            print("  - Sending previous tamagotchi stats to iPhone")
+            delegate?.characterStatsDidUpdate(id: currentId, energy: self.energy, fullness: self.fullness, happiness: self.happiness)
+        }
+        
+        // 새로운 다마고치 로드
+        if selectedTamagotchiId != id {
+            print("  - Loading new tamagotchi!")
+            
+            selectedTamagotchiId = id
+            self.imageSetName = imageSetName
+            self.energy = energy
+            self.fullness = fullness
+            self.happiness = happiness
+            currentState = .idle
+            
+            defaults.set(id.uuidString, forKey: AppGroupKeys.selectedId)
+            defaults.set(imageSetName, forKey: AppGroupKeys.selectedImageSetName)
+        } else if self.imageSetName != imageSetName {
+            print("  - ImageSet changed!")
+            self.imageSetName = imageSetName
+            defaults.set(imageSetName, forKey: AppGroupKeys.selectedImageSetName)
+        }
     }
     
     private func startTimer() {

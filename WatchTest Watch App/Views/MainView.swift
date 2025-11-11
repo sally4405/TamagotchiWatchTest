@@ -30,8 +30,8 @@ struct MainView: View {
         .navigationTitle("메인")
         .environment(\.scenePhase, scenePhase)
         .onChange(of: scenePhase) { oldValue, newValue in
-            if newValue == .active {
-//                characterStats.reloadFromUserDefaults()
+            if newValue == .active && characterStats.selectedTamagotchiId != nil && scene == nil {
+                scene = TamagotchiScene(imageSetName: characterStats.imageSetName)
             }
         }
         .onAppear {
@@ -65,15 +65,15 @@ struct MainView: View {
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
             
-            Button {
-//                characterStats.reloadFromUserDefaults()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.clockwise")
-                    Text("새로고침")
-                }
-            }
-            .buttonStyle(.bordered)
+//            Button {
+////                characterStats.reloadFromUserDefaults()
+//            } label: {
+//                HStack {
+//                    Image(systemName: "arrow.clockwise")
+//                    Text("새로고침")
+//                }
+//            }
+//            .buttonStyle(.bordered)
         }
     }
     

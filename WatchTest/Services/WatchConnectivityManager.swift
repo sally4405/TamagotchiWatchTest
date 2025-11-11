@@ -95,12 +95,34 @@ extension WatchConnectivityManager: WCSessionDelegate {
                 return
             }
             
-            print("📱 iOS: Received stats update from Watch")
+            print("📱 iOS: Received stats update from Watch (message)")
             print("  - ID: \(idString)")
             print("  - Energy: \(energy)")
             
             tamagotchiManager?.updateStats(id: id, energy: energy, fullness: fullness, happiness: happiness)
         }
+    }
+    
+    nonisolated func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
+        Task { @MainActor in
+            guard let type = userInfo["type"] as? String,
+                  type == "updateStats",
+                  let idString = userInfo["id"] as? String,
+                  let id = UUID(uuidString: idString),
+                  let energy = userInfo["energy"] as? Int,
+                  let fullness = userInfo["fullness"] as? Int,
+                  let happiness = userInfo["happiness"] as? Int else {
+                print("📱 iOS: Received invalid userInfo")
+                return
+            }
+            
+            print("📱 iOS: Received stats update from Watch (userInfo)")
+            print("  - ID: \(idString)")
+            print("  - Energy: \(energy)")
+            
+            tamagotchiManager?.updateStats(id: id, energy: energy, fullness: fullness, happiness: happiness)
+        }
+
     }
     
     nonisolated func sessionDidBecomeInactive(_ session: WCSession) {

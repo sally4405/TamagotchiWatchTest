@@ -21,6 +21,10 @@ struct WatchTest_Watch_AppApp: App {
                 .environmentObject(stepCounter)
                 .environmentObject(currencyManager)
                 .environmentObject(inventoryManager)
+                .onAppear {
+                    WatchConnectivityManager.shared.characterStats = characterStats
+                    characterStats.delegate = WatchConnectivityManager.shared
+                }
         }
     }
 }

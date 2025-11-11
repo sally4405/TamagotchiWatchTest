@@ -105,6 +105,7 @@
 				Assets.xcassets,
 				ContentView.swift,
 				Models/TamagotchiManager.swift,
+				Services/WatchConnectivityManager.swift,
 				Views/AddTamagotchiView.swift,
 				Views/InventoryView.swift,
 				Views/TamagotchiCard.swift,

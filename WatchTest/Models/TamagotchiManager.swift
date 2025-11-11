@@ -46,16 +46,12 @@ class TamagotchiManager: ObservableObject {
     }
     
     func selectTamagochi(_ id: UUID) {
-//        if let previousId = selectedTamagotchiId {
-//            saveStatsFromWatchOS(previousId)
-//        }
-        
         selectedTamagotchiId = id
+        defaults.set(id.uuidString, forKey: AppGroupKeys.selectedId)
         
-        // WatchConnectivity 연결?
-//        if let selectedTamagotchi = tamagotchis.first(where: { $0.id == id }) {
-//            notifyWatchOS(selectedTamagotchi)
-//        }
+        if let selectedTamagotchi = tamagotchis.first(where: { $0.id == id }) {
+            WatchConnectivityManager.shared.sendTamagotchiToWatch(selectedTamagotchi)
+        }
     }
     
     func updateStats(id: UUID, energy: Int, fullness: Int, happiness: Int) {

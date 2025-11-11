@@ -17,6 +17,9 @@ struct WatchTestApp: App {
             ContentView()
                 .environmentObject(tamagotchiManager)
                 .environmentObject(inventoryManager)
+                .onAppear {
+                    WatchConnectivityManager.shared.tamagotchiManager = tamagotchiManager
+                }
         }
     }
 }
