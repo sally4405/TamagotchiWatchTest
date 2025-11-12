@@ -11,10 +11,12 @@ class TamagotchiScene: SKScene {
     // MARK: - Constants
     private enum Layout {
         static let sceneSize: CGFloat = 250
-        static let effectSize: CGFloat = 400
-        static let effectTopMargin: CGFloat = 30
-        static let effectItemOffset: CGPoint = CGPoint(x: -250, y: 20)
-        static let characterOffsetY: CGFloat = -250
+        static let effectSizeRatio: CGFloat = 0.3  // 캐릭터 크기의 0.3배
+        static let effectTopMarginRatio: CGFloat = 0.2  // 캐릭터 높이의 10%
+        static let effectItemOffsetRatio = CGPoint(x: -1.5, y: 0.2)  // 캐릭터 크기 비율
+        static let statChangeFontSizeRatio: CGFloat = 0.3  // 캐릭터 높이의 0.3배
+        static let statChangeRandomRangeRatio: CGFloat = 1.0  // 캐릭터 너비의 1.0배
+        static let statChangeMoveUpRatio: CGFloat = 0.5  // 캐릭터 높이의 0.5배
     }
     
     // MARK: - Node Hierarchy
@@ -48,7 +50,7 @@ class TamagotchiScene: SKScene {
         let character = createCharacter(imageSetName: imageSetName)
         container.addChild(character)
         setupEffectNodes()
-        scaleContainer(container, characterSize: calculateCharacterSize())
+        scaleContainer()
     }
     
     private func setupNotifications() {
@@ -71,29 +73,44 @@ class TamagotchiScene: SKScene {
     
     private func createCharacter(imageSetName: String) -> SKNode {
         let character = TamagotchiCharacter(imageSetName: imageSetName)
-        character.position = CGPoint(x: 0, y: Layout.characterOffsetY)
+        let characterSize = character.calculateSize()
+        
+        let yOffset = -(characterSize.height * 0.2)
+        character.position = CGPoint(x: 0, y: yOffset)
+        
         characterNode = character
+        
         return character
     }
     
     private func setupEffectNodes() {
         guard let character = characterNode else { return }
-        
-        let effectSize = CGSize(width: Layout.effectSize, height: Layout.effectSize)
+
+        // 캐릭터 크기 기준으로 이펙트 크기 계산
+        let characterSize = character.calculateSize()
+        let effectSize = CGSize(
+            width: characterSize.width * Layout.effectSizeRatio,
+            height: characterSize.height * Layout.effectSizeRatio
+        )
+
+        // 캐릭터 최상단 위치
         let characterTopY = character.position.y + character.getTopYPosition()
-        
+
         // 위쪽 이펙트 (하트, 전구, 잠자기 등)
         let topEffect = SKSpriteNode(color: .clear, size: effectSize)
-        topEffect.position = CGPoint(x: character.position.x, y:  characterTopY + effectSize.height / 2 + Layout.effectTopMargin)
+        let topMargin = characterSize.height * Layout.effectTopMarginRatio
+        topEffect.position = CGPoint(x: 0, y: characterTopY + topMargin)
         topEffect.zPosition = 100
         topEffect.alpha = 0
         topEffect.name = "effect_top"
         containerNode?.addChild(topEffect)
         effectTopNode = topEffect
-        
+
         // 아이템 이펙트 (음식, 장난감 등)
         let itemEffect = SKSpriteNode(color: .clear, size: effectSize)
-        itemEffect.position = CGPoint(x: character.position.x + Layout.effectItemOffset.x, y: characterTopY + Layout.effectItemOffset.y)
+        let itemOffsetX = characterSize.width * Layout.effectItemOffsetRatio.x
+        let itemOffsetY = characterSize.height * Layout.effectItemOffsetRatio.y
+        itemEffect.position = CGPoint(x: itemOffsetX, y: characterTopY + itemOffsetY)
         itemEffect.zPosition = 100
         itemEffect.alpha = 0
         itemEffect.name = "effect_item"
@@ -102,20 +119,16 @@ class TamagotchiScene: SKScene {
     }
         
     // MARK: - Calculate Functions
-    private func scaleContainer(_ container: SKNode, characterSize: CGSize) {
-        let scaleX = size.width / characterSize.width
-        let scaleY = size.height / characterSize.height
-        let scale = min(scaleX, scaleY) * 0.9
-        container.setScale(scale)
-    }
-    
-    private func calculateCharacterSize() -> CGSize {
-        guard let character = characterNode else { return .zero }
+    private func scaleContainer() {
+        guard let container = containerNode,
+              let character = characterNode else { return }
         
         let characterSize = character.calculateSize()
-        let totalHeight = Layout.effectSize + Layout.effectTopMargin + characterSize.height
         
-        return CGSize(width: characterSize.width, height: totalHeight)
+        let targetHeight: CGFloat = size.height * 0.7
+        let scale = targetHeight / characterSize.height
+        
+        container.setScale(scale)
     }
     
     // MARK: - Tap Handling
@@ -127,7 +140,25 @@ class TamagotchiScene: SKScene {
     private func convertToSceneCoordinates(_ location: CGPoint, viewWidth: CGFloat, viewHeight: CGFloat) -> CGPoint {
         let scaleX = size.width / viewWidth
         let scaleY = size.height / viewHeight
-        return CGPoint(x: location.x * scaleX, y: (viewHeight - location.y) * scaleY)
+        var scenePoint = CGPoint(x: location.x * scaleX, y: (viewHeight - location.y) * scaleY)
+
+        // containerNode의 위치 오프셋 제거
+        if let container = containerNode {
+            scenePoint.x -= container.position.x
+            scenePoint.y -= container.position.y
+
+            // containerNode의 스케일을 역으로 적용
+            scenePoint.x /= container.xScale
+            scenePoint.y /= container.yScale
+        }
+
+        // characterNode의 위치 오프셋 제거
+        if let character = characterNode {
+            scenePoint.x -= character.position.x
+            scenePoint.y -= character.position.y
+        }
+
+        return scenePoint
     }
 
     // MARK: - Notification Handlers
@@ -156,48 +187,56 @@ class TamagotchiScene: SKScene {
     
     func showStatChange(text: String, color: UIColor) {
         guard let characterNode = characterNode else { return }
-        
+
+        let characterSize = characterNode.calculateSize()
+
         let label = SKLabelNode(text: text)
         label.fontName = ".AppleSystemUIFontBlack"
-        label.fontSize = 250
+        label.fontSize = characterSize.height * Layout.statChangeFontSizeRatio
         label.fontColor = color
-        
-        let randomX = CGFloat.random(in: -400...400)
-        let randomY = CGFloat.random(in: -400...400)
+
+        let randomRange = characterSize.width * Layout.statChangeRandomRangeRatio
+        let randomX = CGFloat.random(in: -randomRange...randomRange)
+        let randomY = CGFloat.random(in: -randomRange...randomRange)
         label.position = CGPoint(x: characterNode.position.x + randomX, y: characterNode.position.y + randomY)
         label.zPosition = 110
-        
+
         containerNode?.addChild(label)
-        
-        let moveUp = SKAction.moveBy(x: 0, y: 200, duration: 2.0)
+
+        let moveUpDistance = characterSize.height * Layout.statChangeMoveUpRatio
+        let moveUp = SKAction.moveBy(x: 0, y: moveUpDistance, duration: 2.0)
         let fadeOut = SKAction.fadeOut(withDuration: 2.0)
         let group = SKAction.group([moveUp, fadeOut])
         let remove = SKAction.removeFromParent()
-        
+
         label.run(SKAction.sequence([group, remove]))
     }
     
     private func showEffect(imageName: String, position: EffectPosition, duration: TimeInterval? = nil, completion: (() -> Void)? = nil) {
-        let node = position == .top ? effectTopNode : effectItemNode
-        
+        guard let node = position == .top ? effectTopNode : effectItemNode,
+              let character = characterNode else { return }
+
         let texture = SKTexture(imageNamed: imageName)
-        node?.texture = texture
-        
+        node.texture = texture
+
+        // 캐릭터 크기 기준으로 이펙트 크기 계산
+        let characterSize = character.calculateSize()
         let textureSize = texture.size()
         let aspectRatio = textureSize.width / textureSize.height
-        node?.size = CGSize(width: Layout.effectSize * aspectRatio, height: Layout.effectSize)
-        
+        let effectHeight = characterSize.height * Layout.effectSizeRatio
+        node.size = CGSize(width: effectHeight * aspectRatio, height: effectHeight)
+
         if let duration = duration {
             let sequence = SKAction.sequence([
                 SKAction.fadeAlpha(to: 1, duration: 0.2),
                 SKAction.wait(forDuration: duration - 0.4),
                 SKAction.fadeAlpha(to: 0, duration: 0.2)
             ])
-            node?.run(sequence) {
+            node.run(sequence) {
                 completion?()
             }
         } else {
-            node?.run(SKAction.fadeAlpha(to: 1, duration: 0.2))
+            node.run(SKAction.fadeAlpha(to: 1, duration: 0.2))
         }
     }
     
@@ -213,6 +252,17 @@ class TamagotchiScene: SKScene {
     
     // MARK: - Public Methods
     func updateCharacter(imageSetName: String) {
+        // 기존 이펙트 노드 제거
+        effectTopNode?.removeFromParent()
+        effectItemNode?.removeFromParent()
+
+        // 캐릭터 이미지셋 변경
         characterNode?.loadImageSet(imageSetName)
+
+        // 이펙트 노드 재설정
+        setupEffectNodes()
+
+        // 컨테이너 스케일 재계산
+        scaleContainer()
     }
 }
