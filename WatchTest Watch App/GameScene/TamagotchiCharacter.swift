@@ -100,16 +100,23 @@ class TamagotchiCharacter: SKNode {
     func handleTap(at point: CGPoint) {
         let tappedNodes = nodes(at: point)
         guard let topNode = tappedNodes.first else { return }
-        
+
         performAction(for: topNode)
     }
     
     func getTopYPosition() -> CGFloat {
-        guard let head = headNode else { return .zero }
-        
+        guard let head = headNode else { return 0 }
         return head.position.y + head.size.height / 2
     }
     
+    func getBottomYPosition() -> CGFloat {
+        guard let body = bodyNode,
+              let leftLeg = leftLegNode,
+              let rightLeg = rightLegNode else { return 0 }
+        
+        return -body.size.height / 2 - max(leftLeg.size.height, rightLeg.size.height)
+    }
+
     func calculateSize() -> CGSize {
         guard let body = bodyNode,
               let head = headNode,
