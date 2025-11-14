@@ -51,6 +51,10 @@ class InventoryManager: ObservableObject {
         if let encoded = try? JSONEncoder().encode(items) {
             defaults.set(encoded, forKey: AppGroupKeys.inventoryItems)
         }
+        
+        #if os(watchOS)
+        WatchConnectivityManager.shared.sendInventoryToiPhone(items)
+        #endif
     }
     
     private func loadData() {

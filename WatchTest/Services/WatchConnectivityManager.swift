@@ -16,6 +16,7 @@ class WatchConnectivityManager: NSObject, ObservableObject {
     private var session: WCSession?
     
     @Published var isReachable: Bool = false
+    @Published var watchInventory: [String: Int] = [:]
     
     override init() {
         super.init()
@@ -99,7 +100,7 @@ extension WatchConnectivityManager: WCSessionDelegate {
             print("📱 iOS: Received stats update from Watch")
             print("  - ID: \(idString)")
             print("  - Energy: \(energy)")
-
+            
             let stats = TamagotchiStats(energy: energy, fullness: fullness, happiness: happiness)
             tamagotchiManager?.updateStats(id: id, stats: stats)
         }
@@ -121,11 +122,24 @@ extension WatchConnectivityManager: WCSessionDelegate {
             print("📱 iOS: Received stats update from Watch (userInfo)")
             print("  - ID: \(idString)")
             print("  - Energy: \(energy)")
-
+            
             let stats = TamagotchiStats(energy: energy, fullness: fullness, happiness: happiness)
             tamagotchiManager?.updateStats(id: id, stats: stats)
         }
-
+    }
+    
+    nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
+        Task { @MainActor in
+            guard let type = applicationContext["type"] as? String else { return }
+            
+            if type == "updateInventory" {
+                if let inventory = applicationContext["inventory"] as? [String: Int] {
+                    print("📱 iOS: Received inventory from Watch")
+                    print("  - Items count: \(inventory.count)")
+                    self.watchInventory = inventory
+                }
+            }
+        }
     }
     
     nonisolated func sessionDidBecomeInactive(_ session: WCSession) {

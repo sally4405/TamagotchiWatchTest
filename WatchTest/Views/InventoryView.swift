@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct InventoryView: View {
-    @EnvironmentObject var inventoryManager: InventoryManager
+    @EnvironmentObject var watchConnectivity: WatchConnectivityManager
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(Items.all) { item in
-                    let count = inventoryManager.getItemCount(item.id)
+                    let count = watchConnectivity.watchInventory[item.id] ?? 0
                     if count > 0 {
                         InventoryItemRow(item: item, count: count)
                     }
@@ -88,10 +88,5 @@ struct InventoryItemRow: View {
 
 #Preview {
     InventoryView()
-        .environmentObject({
-            let manager = InventoryManager()
-            manager.addItem("food1", count: 1)
-            manager.addItem("ball1", count: 1)
-            return manager
-        }())
+        .environmentObject(WatchConnectivityManager.shared)
 }

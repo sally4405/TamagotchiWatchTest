@@ -53,6 +53,24 @@ class WatchConnectivityManager: NSObject, ObservableObject {
             session.transferUserInfo(message)
         }
     }
+    
+    func sendInventoryToiPhone(_ inventory: [String: Int]) {
+        guard let session = session else { return }
+        
+        print("⌚️ watchOS: Sending inventory to iPhone")
+        
+        let context: [String: Any] = [
+            "type": "updateInventory",
+            "inventory": inventory
+        ]
+        
+        do {
+            try session.updateApplicationContext(context)
+            print("⌚️ watchOS: Inventory context updated")
+        } catch {
+            print("⌚️ watchOS: Failed to update inventory - \(error)")
+        }
+    }
 }
 
 // MARK: - WCSessionDelegate

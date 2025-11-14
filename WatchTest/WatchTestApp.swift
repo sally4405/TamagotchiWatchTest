@@ -10,13 +10,13 @@ import SwiftUI
 @main
 struct WatchTestApp: App {
     @StateObject private var tamagotchiManager = TamagotchiManager()
-    @StateObject private var inventoryManager = InventoryManager()
+    @StateObject private var watchConnectivity = WatchConnectivityManager.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(tamagotchiManager)
-                .environmentObject(inventoryManager)
+                .environmentObject(watchConnectivity)
                 .onAppear {
                     WatchConnectivityManager.shared.tamagotchiManager = tamagotchiManager
                 }
