@@ -49,13 +49,8 @@ class TamagotchiManager: ObservableObject {
         print("  - ID: \(newTamagotchi.id.uuidString)")
         print("  - ImageSet: \(newTamagotchi.imageSetName)")
 
-        // 기존 다마고치가 있고 다른 ID면 iOS로 스텟 전송
-        if let current = currentTamagotchi, current.id != newTamagotchi.id {
-            print("  - Sending previous stats to iPhone")
-            WatchConnectivityManager.shared.sendStatsToiPhone(id: current.id, stats: current.stats)
-        }
-
-        // 새 다마고치 로드
+        savePreviousTamagotchiIfNeeded(newId: newTamagotchi.id)
+        
         currentTamagotchi = newTamagotchi
         currentState = .idle
         saveToUserDefaults()
@@ -67,6 +62,14 @@ class TamagotchiManager: ObservableObject {
         currentState = .idle
         stopTimer()
         defaults.removeObject(forKey: AppGroupKeys.selectedTamagotchi)
+    }
+    
+    private func savePreviousTamagotchiIfNeeded(newId: UUID) {
+        guard let current = currentTamagotchi,
+              current.id != newId else { return }
+        
+        print("  - Sending previous stats to iPhone")
+        WatchConnectivityManager.shared.sendStatsToiPhone(id: current.id, stats: current.stats)
     }
 
     // MARK: - Actions

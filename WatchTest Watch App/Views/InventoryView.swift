@@ -38,7 +38,7 @@ struct InventoryView: View {
                         Divider()
                     }
                     
-                    if !ownedFoods.isEmpty {
+                    if !ownedToys.isEmpty {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                             ForEach(ownedToys) { item in
                                 inventoryItemCard(item)

@@ -28,15 +28,12 @@ class InventoryManager: ObservableObject {
     }
     
     func useItem(_ itemId: String) {
-        guard let currentCount = items[itemId], currentCount > 0 else {
-            return
-        }
+        guard let currentCount = items[itemId], currentCount > 0 else { return }
         
         items[itemId] = currentCount - 1
         if items[itemId] == 0 {
             items.removeValue(forKey: itemId)
         }
-        return
     }
     
     func getItemCount(_ itemId: String) -> Int {
@@ -48,13 +45,8 @@ class InventoryManager: ObservableObject {
     }
     
     private func saveData() {
-        if let encoded = try? JSONEncoder().encode(items) {
-            defaults.set(encoded, forKey: AppGroupKeys.inventoryItems)
-        }
-        
-        #if os(watchOS)
-        WatchConnectivityManager.shared.sendInventoryToiPhone(items)
-        #endif
+        saveToUserDefaults()
+        syncToiPhoneIfNeeded()
     }
     
     private func loadData() {
@@ -62,5 +54,16 @@ class InventoryManager: ObservableObject {
            let decoded = try? JSONDecoder().decode([String: Int].self, from: data) {
             items = decoded
         }
+    }
+    
+    private func saveToUserDefaults() {
+        guard let encoded = try? JSONEncoder().encode(items) else { return }
+        defaults.set(encoded, forKey: AppGroupKeys.inventoryItems)
+    }
+    
+    private func syncToiPhoneIfNeeded() {
+        #if os(watchOS)
+        WatchConnectivityManager.shared.sendInventoryToiPhone(items)
+        #endif
     }
 }

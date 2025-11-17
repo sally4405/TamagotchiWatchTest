@@ -85,7 +85,7 @@ struct ExchangeView: View {
                     
                 } else {
                     VStack {
-                        Text("HeathKit 권한 필요")
+                        Text("HealthKit 권한 필요")
                             .font(.caption)
                         
                         Button("권한 요청") {

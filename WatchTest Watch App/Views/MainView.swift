@@ -13,7 +13,7 @@ struct MainView: View {
     @Environment(\.scenePhase) var scenePhase
 
     @State private var scene: TamagotchiScene?
-    private let charaterViewSize: CGFloat = 100
+    private let characterViewSize: CGFloat = 100
     @State private var roomNumber: Int = 1
     @State private var isPark: Bool = false
     @State private var showFoodSelection: Bool = false
@@ -30,27 +30,19 @@ struct MainView: View {
         .navigationTitle(tamagotchiManager.currentTamagotchi?.name ?? "메인")
         .environment(\.scenePhase, scenePhase)
         .onChange(of: scenePhase) { oldValue, newValue in
-            if newValue == .active,
-               let tamagotchi = tamagotchiManager.currentTamagotchi,
-               scene == nil {
-                scene = TamagotchiScene(imageSetName: tamagotchi.imageSetName)
+            if newValue == .active {
+                updateScene()
             }
         }
         .onAppear {
-            if let tamagotchi = tamagotchiManager.currentTamagotchi {
-                scene = TamagotchiScene(imageSetName: tamagotchi.imageSetName)
-            }
+            updateScene()
         }
-        .onChange(of: tamagotchiManager.currentTamagotchi?.id) { oldValue, newValue in
-            if newValue != nil, let tamagotchi = tamagotchiManager.currentTamagotchi {
-                scene = TamagotchiScene(imageSetName: tamagotchi.imageSetName)
-            } else {
-                scene = nil
-            }
+        .onChange(of: tamagotchiManager.currentTamagotchi?.id) {
+            updateScene(forceRecreate: true)
         }
         .onChange(of: tamagotchiManager.currentTamagotchi?.imageSetName) { oldValue, newValue in
             if let imageSetName = newValue {
-                scene?.updateCharacter(imageSetName: imageSetName)
+                updateCharacterImageSet(imageSetName)
             }
         }
     }
@@ -96,15 +88,15 @@ struct MainView: View {
                     Spacer()
                     if let scene = scene {
                         SpriteView(scene: scene)
-                            .frame(width: charaterViewSize, height: charaterViewSize)
+                            .frame(width: characterViewSize, height: characterViewSize)
                             .onTapGesture { location in
                                 if tamagotchiManager.currentState == .sleeping {
                                     tamagotchiManager.wakeUp()
                                 } else {
                                     scene.handleTap(
                                         at: location,
-                                        viewWidth: charaterViewSize,
-                                        viewHeight: charaterViewSize
+                                        viewWidth: characterViewSize,
+                                        viewHeight: characterViewSize
                                     )
                                 }
                             }
@@ -165,12 +157,27 @@ struct MainView: View {
             }
         }
     }
+    
+    private func updateScene(forceRecreate: Bool = false) {
+        guard let tamagotchi = tamagotchiManager.currentTamagotchi else {
+            scene = nil
+            return
+        }
+        
+        if scene == nil || forceRecreate {
+            scene = TamagotchiScene(imageSetName: tamagotchi.imageSetName)
+        }
+    }
+    
+    private func updateCharacterImageSet(_ imageSetName: String) {
+        scene?.updateCharacter(imageSetName: imageSetName)
+    }
 
     private func showStatChanges(for effects: ItemEffects) {
         guard let scene = scene else { return }
 
-        if let energe = effects.energy, energe != 0 {
-            scene.showStatChange(text: energe > 0 ? "+\(energe)" : "\(energe)", color: .cyan)
+        if let energy = effects.energy, energy != 0 {
+            scene.showStatChange(text: energy > 0 ? "+\(energy)" : "\(energy)", color: .cyan)
         }
         if let fullness = effects.fullness, fullness != 0 {
             scene.showStatChange(text: fullness > 0 ? "+\(fullness)" : "\(fullness)", color: UIColor(.pink))

@@ -46,10 +46,6 @@ struct TamagotchiStats: Codable {
         }
     }
 
-    func toEffects() -> ItemEffects {
-        ItemEffects(energy: energy, fullness: fullness, happiness: happiness)
-    }
-
     private static func clamp(_ value: Int) -> Int {
         max(limits.lowerBound, min(limits.upperBound, value))
     }

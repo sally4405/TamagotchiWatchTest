@@ -10,7 +10,7 @@ import SwiftUI
 struct DebugView: View {
     @EnvironmentObject var currencyManager: CurrencyManager
     @EnvironmentObject var tamagotchiManager: TamagotchiManager
-    @EnvironmentObject var inventoryManger: InventoryManager
+    @EnvironmentObject var inventoryManager: InventoryManager
 
     var body: some View {
         ScrollView {
@@ -114,7 +114,7 @@ struct DebugView: View {
                     Text("Inventory")
                         .font(.headline)
                     debugButton("reset all item") {
-                        inventoryManger.items.removeAll()
+                        inventoryManager.items.removeAll()
                     }
                 }
             }
