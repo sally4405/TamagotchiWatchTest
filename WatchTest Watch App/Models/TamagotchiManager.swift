@@ -60,6 +60,14 @@ class TamagotchiManager: ObservableObject {
         currentState = .idle
         saveToUserDefaults()
     }
+    
+    func clearTamagotchi() {
+        print("⌚️ TamagotchiManager: Clearing tamagotchi")
+        currentTamagotchi = nil
+        currentState = .idle
+        stopTimer()
+        defaults.removeObject(forKey: AppGroupKeys.selectedTamagotchi)
+    }
 
     // MARK: - Actions
     func applyItem(_ effects: ItemEffects) {

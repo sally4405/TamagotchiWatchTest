@@ -29,34 +29,41 @@ class WatchConnectivityManager: NSObject, ObservableObject {
     }
     
     // MARK: - Send to Watch
-    func sendTamagotchiToWatch(_ tamagotchi: Tamagotchi) {
+    func sendTamagotchiToWatch(_ tamagotchi: Tamagotchi? = nil) {
         guard let session = session else { return }
-        
-        print("📱 iOS: Sending tamagotchi to Watch")
-        print("  - ID: \(tamagotchi.id.uuidString)")
-        print("  - ImageSet: \(tamagotchi.imageSetName)")
-        
-        let message: [String: Any] = [
-            "type": "selectTamagotchi",
-            "id": tamagotchi.id.uuidString,
-            "name": tamagotchi.name,
-            "imageSetName": tamagotchi.imageSetName,
-            "energy": tamagotchi.stats.energy,
-            "fullness": tamagotchi.stats.fullness,
-            "happiness": tamagotchi.stats.happiness
-        ]
+        var message: [String: Any] = [:]
+                
+        if let tamagotchi = tamagotchi {
+            print("📱 iOS: Sending tamagotchi to Watch")
+            print("  - ID: \(tamagotchi.id.uuidString)")
+            print("  - ImageSet: \(tamagotchi.imageSetName)")
+            
+            message = [
+                "type": "selectTamagotchi",
+                "id": tamagotchi.id.uuidString,
+                "name": tamagotchi.name,
+                "imageSetName": tamagotchi.imageSetName,
+                "energy": tamagotchi.stats.energy,
+                "fullness": tamagotchi.stats.fullness,
+                "happiness": tamagotchi.stats.happiness
+            ]
+        } else {
+            print("📱 iOS: Sending clear tamagotchi to Watch")
+            
+            message = ["type": "clearTamagotchi"]
+        }
         
         if session.isReachable {
             session.sendMessage(message, replyHandler: nil) { error in
                 print("📱 iOS: Failed to send message - \(error.localizedDescription)")
-                self.sendViaUserInfo(message)
+                self.sendViaContext(message)
             }
         } else {
-            sendViaUserInfo(message)
+            sendViaContext(message)
         }
     }
     
-    private func sendViaUserInfo(_ message: [String: Any]) {
+    private func sendViaContext(_ message: [String: Any]) {
         do {
             try session?.updateApplicationContext(message)
             print("📱 iOS: Updated application context")
@@ -86,59 +93,22 @@ extension WatchConnectivityManager: WCSessionDelegate {
     
     nonisolated func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         Task { @MainActor in
-            guard let type = message["type"] as? String,
-                  type == "updateStats",
-                  let idString = message["id"] as? String,
-                  let id = UUID(uuidString: idString),
-                  let energy = message["energy"] as? Int,
-                  let fullness = message["fullness"] as? Int,
-                  let happiness = message["happiness"] as? Int else {
-                print("📱 iOS: Received invalid message")
-                return
-            }
-            
-            print("📱 iOS: Received stats update from Watch")
-            print("  - ID: \(idString)")
-            print("  - Energy: \(energy)")
-            
-            let stats = TamagotchiStats(energy: energy, fullness: fullness, happiness: happiness)
-            tamagotchiManager?.updateStats(id: id, stats: stats)
+            print("📱 iOS: Received message from Watch")
+            handleReceivedData(message)
         }
     }
     
     nonisolated func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
         Task { @MainActor in
-            guard let type = userInfo["type"] as? String,
-                  type == "updateStats",
-                  let idString = userInfo["id"] as? String,
-                  let id = UUID(uuidString: idString),
-                  let energy = userInfo["energy"] as? Int,
-                  let fullness = userInfo["fullness"] as? Int,
-                  let happiness = userInfo["happiness"] as? Int else {
-                print("📱 iOS: Received invalid userInfo")
-                return
-            }
-            
-            print("📱 iOS: Received stats update from Watch (userInfo)")
-            print("  - ID: \(idString)")
-            print("  - Energy: \(energy)")
-            
-            let stats = TamagotchiStats(energy: energy, fullness: fullness, happiness: happiness)
-            tamagotchiManager?.updateStats(id: id, stats: stats)
+            print("📱 iOS: Received user info from Watch")
+            handleReceivedData(userInfo)
         }
     }
     
     nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
         Task { @MainActor in
-            guard let type = applicationContext["type"] as? String else { return }
-            
-            if type == "updateInventory" {
-                if let inventory = applicationContext["inventory"] as? [String: Int] {
-                    print("📱 iOS: Received inventory from Watch")
-                    print("  - Items count: \(inventory.count)")
-                    self.watchInventory = inventory
-                }
-            }
+            print("📱 iOS: Received application context from Watch")
+            handleReceivedData(applicationContext)
         }
     }
     
@@ -149,5 +119,48 @@ extension WatchConnectivityManager: WCSessionDelegate {
     nonisolated func sessionDidDeactivate(_ session: WCSession) {
         print("📱 iOS: Session deactivated")
         session.activate()
+    }
+    
+    // MARK: - Message Handling
+    private func handleReceivedData(_ data: [String: Any]) {
+        guard let type = data["type"] as? String else { return }
+        
+        switch type {
+        case "updateStats":
+            handleUpdateStats(data)
+        case "updateInventory":
+            handleUpdateInventory(data)
+        default:
+            print("📱 iOS: Unknown type - \(type)")
+        }
+    }
+    
+    private func handleUpdateStats(_ data: [String: Any]) {
+        guard let idString = data["id"] as? String,
+              let id = UUID(uuidString: idString),
+              let energy = data["energy"] as? Int,
+              let fullness = data["fullness"] as? Int,
+              let happiness = data["happiness"] as? Int else {
+            print("📱 iOS: Invalid updateStats data")
+            return
+        }
+        
+        print("📱 iOS: Received stats update from Watch")
+        print("  - ID: \(idString)")
+        
+        let stats = TamagotchiStats(energy: energy, fullness: fullness, happiness: happiness)
+        tamagotchiManager?.updateStats(id: id, stats: stats)
+    }
+    
+    private func handleUpdateInventory(_ data: [String: Any]) {
+        guard let inventory = data["inventory"] as? [String: Int] else {
+            print("📱 iOS: Invalid updateInventory data")
+            return
+        }
+        
+        print("📱 iOS: Received inventory update from Watch")
+        print("  - Items count: \(inventory.count)")
+        
+        self.watchInventory = inventory
     }
 }

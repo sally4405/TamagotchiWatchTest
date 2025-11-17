@@ -1,5 +1,5 @@
 //
-//  TamagocthiManager.swift
+//  TamagotchiManager.swift
 //  WatchTest
 //
 //  Created by sello.axz on 11/3/25.
@@ -45,7 +45,37 @@ class TamagotchiManager: ObservableObject {
         saveTamagotchis()
     }
     
-    func selectTamagochi(_ id: UUID) {
+    func updateTamagotchi(id: UUID, name: String?, imageSetName: String?) {
+        guard let index = tamagotchis.firstIndex(where: { $0.id == id }) else { return }
+        
+        if let name = name {
+            tamagotchis[index].name = name
+        }
+        
+        if let imageSetName = imageSetName {
+            tamagotchis[index].imageSetName = imageSetName
+        }
+        
+        saveTamagotchis()
+        
+        if selectedTamagotchiId == id {
+            WatchConnectivityManager.shared.sendTamagotchiToWatch(tamagotchis[index])
+        }
+    }
+    
+    func deleteTamagotchi(id: UUID) {
+        if selectedTamagotchiId == id {
+            selectedTamagotchiId = nil
+            defaults.removeObject(forKey: AppGroupKeys.selectedId)
+            
+            WatchConnectivityManager.shared.sendTamagotchiToWatch()
+        }
+        
+        tamagotchis.removeAll(where: { $0.id == id })
+        saveTamagotchis()
+    }
+    
+    func selectTamagotchi(_ id: UUID) {
         selectedTamagotchiId = id
         defaults.set(id.uuidString, forKey: AppGroupKeys.selectedId)
         

@@ -105,6 +105,7 @@
 				Models/TamagotchiManager.swift,
 				Services/WatchConnectivityManager.swift,
 				Views/AddTamagotchiView.swift,
+				Views/EditTamagotchiView.swift,
 				Views/InventoryView.swift,
 				Views/TamagotchiCard.swift,
 				Views/TamagotchiListView.swift,
